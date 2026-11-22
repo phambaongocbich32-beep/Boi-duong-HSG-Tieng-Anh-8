@@ -1329,7 +1329,7 @@ function quickErrors(t){
     if(/^[a-z]/.test(s))add('chưa viết hoa chữ cái đầu câu.');
     if(!/[.!?]$/.test(s))add('thiếu dấu chấm cuối câu.');
     if((m=s.match(/\b(he|she|it)\s+(help|make|give|take|feel|get|need|want|like|love|enjoy|learn|teach|improve|keep|bring|show|play|have|do|go|become|allow)\b/i)))add('«'+m[0]+'»: chủ ngữ số ít, động từ phải thêm s/es (helps, has, does, goes).');
-    if((m=s.match(new RegExp('\\b'+SUBJ_PL+'\\s+(helps|makes|gives|takes|feels|gets|needs|wants|likes|loves|enjoys|learns|teaches|improves|keeps|brings|shows|plays|has|does|goes|becomes|allows)\\b','i'))))add('«'+m[0]+'»: chủ ngữ số nhiều, động từ không thêm s.');
+    if((m=s.match(new RegExp('\\b'+SUBJ_PL+'\\s+(helps|makes|gives|takes|feels|gets|needs|wants|likes|loves|enjoys|learns|teaches|improves|keeps|brings|shows|plays|has|does|goes|becomes|allows)\\b','i'))))if(!/\b(with|of|for|to|and|from|about|between|among|by|in|on)\s*$/i.test(s.slice(0,m.index)))add('«'+m[0]+'»: chủ ngữ số nhiều, động từ không thêm s.');
     if((m=s.match(/\b(make|makes|made|let|lets)\s+(us|them|him|her|me|you|students|teenagers|children|people|friends)\s+to\s+\w+/i)))add('«'+m[0]+'»: make / let + người + V, không có to.');
     if((m=s.match(/\b(enjoy|enjoys)\s+to\s+\w+|\b(like|likes|love|loves|enjoy|enjoys|hate|hates)\s+(play|do|go|read|watch|listen|spend|swim|cook|walk|run|talk|learn)\b/i)))add('«'+m[0]+'»: sau enjoy dùng V-ing; sau like/love nên dùng V-ing hoặc to V.');
     if((m=s.match(/\b(advices|informations|furnitures|homeworks|knowledges|peoples|childs|womans|mans|scenerys|musics)\b/i)))add('«'+m[0]+'»: sai dạng số (advice, information, furniture, homework, knowledge, scenery, music không thêm s; people, children, women, men là dạng đúng).');
@@ -1414,7 +1414,7 @@ T('8 lỗi hay mất điểm nhất ở học sinh lớp 8',`<table><tr><th>Sai<
   h+='<h2>6. Đoạn mẫu theo Unit</h2><div class="card"><div class="row" style="margin-bottom:8px"><label for="msel">Chọn đề:</label><select id="msel">'+MODELS.map((m,i)=>'<option value="'+i+'">'+m.u+': '+m.t+'</option>').join('')+'</select><button class="btn sm" id="m2B" aria-pressed="false">Ẩn đoạn (tự viết trước)</button></div><p class="stat" id="mh"></p><div id="m2">'+modelHTML(0)+'</div><p class="stat" id="mk"></p></div>';
   h+='<h2>7. Viết từng câu theo ngân sách từ</h2><div class="card hl"><b>Cách canh đủ 120–150 từ</b><ul><li>Đoạn có <b>12 câu</b>, mỗi câu khoảng <b>10–12 từ</b>. Viết đủ 12 câu, mỗi câu trong khung từ, là đoạn tự đạt 120–150 từ.</li><li>Viết xong câu 12 thì <b>dừng</b>. Không thêm ý mới, vì thừa là do viết quá 12 câu hoặc câu quá dài (trên 16 từ).</li><li>Trên giấy: một dòng vở viết được khoảng 10–12 từ, nên đoạn chiếm khoảng <b>12–13 dòng</b>. Đếm dòng để biết mình đã viết bao nhiêu.</li><li>Cần cắt bớt: bỏ very, really, so, a lot of; gộp hai câu ví dụ thành một; bỏ cụm "and so on", "in my opinion".</li></ul></div><div class="card" id="bld"><div class="exam-bar" style="position:static;margin-bottom:8px"><div><span class="stat">Tổng số từ (mục tiêu 120–150)</span><div class="timer" id="btot">0</div></div><div style="flex:1;min-width:160px"><div class="track"><i class="fill" id="bfill"></i><i class="zone"></i></div><span class="stat" id="bmsg"></span></div></div>'+BUD.map((b,i)=>'<div class="bs"><label for="b'+i+'"><b>Câu '+(i+1)+': '+b[0]+'</b> <span class="hint">mở đầu bằng '+b[1]+'</span></label><textarea id="b'+i+'" class="bi" rows="2" aria-label="Câu '+(i+1)+'"></textarea><div class="bc stat" id="bc'+i+'">0 từ · cần '+b[2]+'–'+b[3]+'</div></div>').join('')+'<div class="row"><button class="btn pri" id="bJoin">Ghép thành đoạn</button><button class="btn" id="bCopy">Chép sang khung Tự viết</button><button class="btn sm" id="bClr">Xóa hết</button></div><p id="bOut" class="para" style="margin-top:10px;white-space:pre-wrap"></p></div>';
   h+='<h2>8. Tự viết và chấm điểm</h2><div class="card"><div class="row"><label for="topic">Đề bài:</label><select id="topic">'+WR_TOPICS.map((t,i)=>'<option value="'+i+'">'+t[0]+'</option>').join('')+'</select></div><p class="stat" id="topicNote" style="margin:6px 0">'+WR_TOPICS[0][1]+'</p><textarea id="ta" placeholder="Write your paragraph here…" aria-label="Khung viết đoạn văn"></textarea><div class="track" style="margin-top:8px"><i class="fill" id="fill"></i><i class="zone"></i></div><p>Số từ: <b id="cnt">0</b> <span id="st"></span> · Số câu: <b id="sc">0</b></p><p id="longs" class="stat"></p><div id="quick"></div><ul class="auto" id="auto"></ul></div>';
-  h+='<div class="card hl" id="aiBox"><b>Chấm điểm bài viết bằng Claude</b><p class="stat" id="aiNote">Đang kiểm tra khả năng chấm bằng AI…</p><div id="aiForm" style="display:none"><label for="aiLen" class="stat">Độ dài theo đề</label><select id="aiLen" style="width:100%;font:inherit;padding:8px 10px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin:4px 0 10px"><option value="100">Khoảng 100 từ (theo thông báo mới của cô)</option><option value="150">150–180 từ (theo phiếu tiêu chí chấm)</option></select><label for="aiTopic" class="stat">Đề bài</label><input id="aiTopic" type="text" style="width:100%;font:inherit;padding:8px 10px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin:4px 0 10px"><div class="row" style="margin-bottom:10px"><label><input type="radio" name="aiSrc" value="text" checked> Chấm bài trong khung Tự viết</label><label id="aiImgLbl"><input type="radio" name="aiSrc" value="img"> Chấm bài viết tay (chụp ảnh)</label></div><div id="aiImgBox" style="display:none;margin-bottom:10px"><input type="file" id="aiFile" accept="image/*" multiple> <span id="aiFiles" class="stat"></span></div><button class="btn pri" id="aiGo">Chấm điểm</button></div><div id="aiOut" aria-live="polite"></div></div>';
+  h+='<div class="card hl" id="aiBox"><b>Chấm điểm bài viết</b><p class="stat" id="aiNote">Đang kiểm tra khả năng chấm bằng AI…</p><label for="aiLen" class="stat">Độ dài theo đề</label><select id="aiLen" style="width:100%;font:inherit;padding:8px 10px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin:4px 0 10px"><option value="100">Khoảng 100 từ (theo thông báo mới của cô)</option><option value="150">150–180 từ (theo phiếu tiêu chí chấm)</option></select><button class="btn pri" id="lgGo" style="margin-bottom:10px">Chấm nhanh trên máy (không cần mạng)</button><div id="lgOut" aria-live="polite"></div><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><div id="aiForm" style="display:none"><label for="aiTopic" class="stat">Đề bài</label><input id="aiTopic" type="text" style="width:100%;font:inherit;padding:8px 10px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin:4px 0 10px"><div class="row" style="margin-bottom:10px"><label><input type="radio" name="aiSrc" value="text" checked> Chấm bài trong khung Tự viết</label><label id="aiImgLbl"><input type="radio" name="aiSrc" value="img"> Chấm bài viết tay (chụp ảnh)</label></div><div id="aiImgBox" style="display:none;margin-bottom:10px"><input type="file" id="aiFile" accept="image/*" multiple> <span id="aiFiles" class="stat"></span></div><button class="btn pri" id="aiGo">Chấm điểm</button></div><div id="aiOut" aria-live="polite"></div></div>';
   h+='<h2>9. Bảng soát lỗi 10 điểm</h2><div class="card chk" id="chk"></div><p class="stat" id="prog"></p>';
   h+='<h2>10. Tiêu chí chấm và máy tính điểm</h2><div class="card"><ul><li><b>Structure (3):</b> đủ mở, thân, kết; bố cục mạch lạc.</li><li><b>Content (4):</b> đúng chủ đề, ý rõ, có dẫn chứng, có quan điểm.</li><li><b>Language (2):</b> ngữ pháp đúng, câu đa dạng, từ nối hợp lý, từ vựng phong phú.</li><li><b>Presentation (1):</b> một đoạn liền, đúng độ dài, sạch đẹp.</li></ul><p>Trừ điểm: mỗi lỗi ngữ pháp/cấu trúc −1; mỗi lỗi từ vựng −0,5; thiếu hoặc thừa quá 30% số từ −2.</p><div class="calc"><label>Structure (0–3)<input type="number" id="c1" min="0" max="3" step="0.5" value="3"></label><label>Content (0–4)<input type="number" id="c2" min="0" max="4" step="0.5" value="3"></label><label>Language (0–2)<input type="number" id="c3" min="0" max="2" step="0.5" value="1.5"></label><label>Presentation (0–1)<input type="number" id="c4" min="0" max="1" step="0.5" value="1"></label><label>Số lỗi ngữ pháp<input type="number" id="c5" min="0" value="0"></label><label>Số lỗi từ vựng<input type="number" id="c6" min="0" value="0"></label><label>Lệch quá 30% số từ?<select id="c7"><option value="0">Không</option><option value="1">Có (−2)</option></select></label></div><p style="margin-top:10px">Điểm dự kiến: <span class="big" id="calcOut">0</span> / 10</p></div></div>';
   return h;
@@ -1508,11 +1508,13 @@ function initWR(){
 }
 
 /* ----- Chấm điểm bằng Claude ----- */
+const AIR={content:['Nội dung – Ý tưởng',2],structure:['Bố cục và mạch lạc',2],vocab:['Từ vựng',2],grammar:['Ngữ pháp',3],spelling:['Chính tả và diễn đạt',1]};
 async function aiInit(ta,topic){
+  $('#lgGo').onclick=()=>lgRun(WR_TOPICS[topic.value][0]);
   let sample=null;
   try{if(window.claude&&window.claude.use)sample=await window.claude.use('sample')}catch(e){}
   const note=$('#aiNote');if(!note)return;
-  if(!sample){note.textContent='Chấm bằng Claude chỉ chạy khi mở trang trên claude.ai. Ở bản tải về hoặc GitHub, hãy dùng phần kiểm tra lỗi tự động ngay dưới khung Tự viết và bảng soát 10 điểm.';return}
+  if(!sample){note.textContent='Chấm chi tiết bằng Claude chỉ có khi mở trang trên claude.ai. Ở bản này, hãy dùng nút Chấm nhanh bên dưới.';return}
   let imgOK=false;try{imgOK=!!(await sample.limits()).images}catch(e){}
   note.textContent='Claude chấm theo phiếu tiêu chí của cô (Nội dung 2, Bố cục 2, Từ vựng 2, Ngữ pháp 3, Chính tả 1), chỉ từng lỗi và viết lại đoạn mẫu. Lần đầu sẽ hiện hộp xin phép. Điểm chỉ để tham khảo, điểm chính thức do giáo viên chấm.';
   $('#aiForm').style.display='';
@@ -1523,7 +1525,6 @@ async function aiInit(ta,topic){
   $('#aiFile').addEventListener('change',e=>{$('#aiFiles').textContent=e.target.files.length+' ảnh đã chọn'});
   $('#aiGo').onclick=()=>aiGrade(sample,ta);
 }
-const AIR={content:['Nội dung – Ý tưởng',2],structure:['Bố cục và mạch lạc',2],vocab:['Từ vựng',2],grammar:['Ngữ pháp',3],spelling:['Chính tả và diễn đạt',1]};
 function aiLen(){const v=$('#aiLen').value;return v==='100'?{lo:90,hi:110,t:'khoảng 100 từ (không quá dài cũng không quá ngắn)'}:{lo:150,hi:180,t:'từ 150 đến 180 từ'}}
 function aiPrompt(topic,text,img){
   return 'Bạn là giáo viên tiếng Anh lớp 8 chấm bài viết đoạn văn (paragraph) của học sinh Việt Nam trong kỳ khảo sát học sinh giỏi.\n\n'+
@@ -1572,6 +1573,66 @@ function renderGrade(d,text){
   if(d.rewrite)h+='<div class="card" style="margin-top:12px"><b>Đoạn viết lại tham khảo ('+wc(d.rewrite)+' từ)</b><p class="para">'+esc(d.rewrite)+'</p></div>';
   if(Array.isArray(d.tips)&&d.tips.length)h+='<div class="card" style="margin-top:12px"><b>Cách để lần sau điểm cao hơn</b><ol>'+d.tips.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></div>';
   $('#aiOut').innerHTML=h;
+}
+
+/* ----- Chấm nhanh trên máy (không cần mạng) ----- */
+const LG_STOP=new Set('the a an and or but of to in on at for with by from as is are was were be been it its this that these those they them their we our you your i my he she his her not no do does did have has had can could will would should may might very more most so than then there here about into over after before when while if because also just all any some many much lot lots people'.split(' '));
+const LG_CONN=['first','firstly','first of all','second','secondly','third','thirdly','finally','moreover','in addition','besides','furthermore','however','therefore','as a result','in conclusion','to sum up','overall','in short','for example','for instance','such as','because','so','but','although','while','whenever','not only'];
+const LG_ADV='relieve boost improve develop enhance valuable enjoyable beneficial crucial significant communicate communication confident confidence essential benefit strengthen reduce stress healthy mental physical social skills teamwork cooperate support encourage achieve balance opportunity experience tradition peaceful convenient facilities entertainment independent responsible pressure expectation'.split(' ');
+const LG_TYPO=/\b(recieve|definately|freind|freinds|beleive|wich|becuase|enviroment|importent|healty|comunicate|comunication|activitys|tomorow|diffrent|intresting|interesing|wonderfull|beautifull|alot|exsample|exemple|frist|thirdly?y|studing|writting|happpy|teanagers|teeenagers)\b/ig;
+function localGrade(text,topic,L){
+  const n=wc(text),S=sentsOf(text),low=text.toLowerCase();
+  const words=low.match(/[a-z']+/g)||[];
+  const qe=quickErrors(text);
+  const typos=[...new Set((text.match(LG_TYPO)||[]).map(x=>x.toLowerCase()))];
+  const conn=[...new Set(LG_CONN.filter(c=>new RegExp('(^|[^a-z])'+c+'([^a-z]|$)').test(low)))];
+  const ex=(low.match(/for example|for instance|such as/g)||[]).length;
+  const concl=/in conclusion|to sum up|overall|in short|therefore|to conclude/.test(low);
+  const order=/(first|firstly)/.test(low)&&/(second|secondly|third|thirdly|finally|besides|moreover)/.test(low);
+  const complex=S.filter(s=>/\b(because|when|if|although|while|which|who|whenever|so that|where)\b/i.test(s)).length;
+  const freq={};words.forEach(w=>{if(w.length>3&&!LG_STOP.has(w))freq[w]=(freq[w]||0)+1});
+  const reps=Object.keys(freq).filter(w=>freq[w]>=4);
+  const adv=[...new Set(words.filter(w=>LG_ADV.includes(w)))];
+  const key=topic.toLowerCase().match(/[a-z]{4,}/g)||[];
+  const onTopic=!key.length||key.some(k=>low.includes(k.slice(0,Math.max(4,k.length-2))));
+  const lenOK=n>=L.lo&&n<=L.hi;
+  const C={},cm={};
+  // content
+  let c=lenOK&&ex>=2?2:(ex>=1||lenOK)?1.5:(n<L.lo*0.6?0.5:1);
+  if(!onTopic)c=Math.min(c,1);
+  C.content=c;cm.content=(onTopic?'':'Chưa thấy từ khóa của đề, có thể lạc ý. ')+'Ví dụ cụ thể: '+ex+(ex>=2?' (tốt).':' (nên có ít nhất 2: For example / For instance).')+(lenOK?'':' Độ dài chưa đạt.');
+  // structure
+  let st=(concl&&order&&conn.length>=5)?2:(concl&&conn.length>=3)?1.5:(conn.length>=1)?1:0.5;
+  C.structure=st;cm.structure='Từ nối tìm thấy: '+(conn.length?conn.join(', '):'không có')+'. '+(order?'Có thứ tự ý (First… Second/Finally). ':'Thiếu thứ tự ý First… Second… Finally. ')+(concl?'Có câu kết.':'Thiếu câu kết (In conclusion…).');
+  // vocab
+  let v=(adv.length>=4&&reps.length<=1)?2:(adv.length>=2||reps.length<=1)?1.5:1;
+  C.vocab=v;cm.vocab='Từ vựng nổi bật: '+(adv.length?adv.join(', '):'chưa có')+'. '+(reps.length?'Từ lặp nhiều: '+reps.map(w=>w+' ('+freq[w]+'x)').join(', ')+'.':'Ít lặp từ.');
+  // grammar
+  const e=qe.length;
+  let g=(e===0&&complex>=3)?3:(e<=2&&complex>=2)?2:(e<=5)?1:0.5;
+  if(e===0&&complex<3)g=2;
+  C.grammar=g;cm.grammar=e+' lỗi phát hiện được, '+complex+' câu phức. (Máy chỉ bắt được một phần lỗi, ngữ pháp cần người đọc lại.)';
+  // spelling
+  const sp=typos.length+qe.filter(x=>/viết hoa|nháy|dấu chấm/.test(x)).length;
+  C.spelling=sp===0?1:sp<=2?0.5:0;cm.spelling=sp?sp+' lỗi chính tả / dấu câu.':'Chưa thấy lỗi chính tả rõ ràng.';
+  const tips=[];
+  if(!lenOK)tips.push(n<L.lo?'Còn thiếu '+(L.lo-n)+' từ, hãy thêm ví dụ.':'Thừa '+(n-L.hi)+' từ, hãy cắt các câu dài.');
+  if(ex<2)tips.push('Thêm ví dụ cụ thể bằng For example / For instance.');
+  if(!concl)tips.push('Kết bằng In conclusion hoặc Therefore.');
+  if(!order)tips.push('Dùng First… Second… Finally để sắp xếp ý.');
+  if(reps.length)tips.push('Thay từ lặp bằng từ đồng nghĩa: '+reps.join(', ')+'.');
+  if(complex<3)tips.push('Thêm câu phức với because, when, if, although, which.');
+  return{C,cm,qe,typos,n,tips,tot:Object.keys(C).reduce((a,k)=>a+C[k],0)};
+}
+function lgRun(topic){
+  const t=$('#ta').value.trim(),out=$('#lgOut');
+  if(!t){out.innerHTML='<p class="bad-t">Hãy viết đoạn văn vào khung Tự viết trước.</p>';return}
+  const L=aiLen(),r=localGrade(t,topic,L),f=x=>String(x).replace('.',',');
+  let h='<div class="card" style="margin-top:12px"><div class="stat">Điểm chấm nhanh trên máy (ước lượng)</div><div class="big">'+f(r.tot)+' / 10</div><div class="tbl"><table><tr><th>Tiêu chí</th><th>Điểm</th><th>Căn cứ</th></tr>'+Object.keys(AIR).map(k=>'<tr><td>'+AIR[k][0]+'</td><td>'+f(r.C[k])+' / '+AIR[k][1]+'</td><td>'+esc(r.cm[k])+'</td></tr>').join('')+'</table></div>';
+  h+='<p class="'+(r.n>=L.lo&&r.n<=L.hi?'ok-t':'bad-t')+'">Số từ: '+r.n+' (yêu cầu '+L.t+').</p><p class="stat">Máy đếm từ nối, ví dụ, từ lặp, lỗi phổ biến nên chỉ là ước lượng, có thể sai lệch 1–2 điểm. Điểm chính thức do giáo viên chấm.</p></div>';
+  if(r.qe.length||r.typos.length)h+='<div class="card" style="margin-top:12px"><b>Lỗi phát hiện</b><ul>'+r.qe.map(x=>'<li>'+esc(x)+'</li>').join('')+r.typos.map(x=>'<li>Chính tả: «'+esc(x)+'»</li>').join('')+'</ul></div>';
+  if(r.tips.length)h+='<div class="card" style="margin-top:12px"><b>Cách tăng điểm</b><ol>'+r.tips.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></div>';
+  out.innerHTML=h;
 }
 
 /* ----- Đề thi thử ----- */
