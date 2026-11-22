@@ -1311,6 +1311,59 @@ const wc=t=>{t=t.trim();return t?t.split(/\s+/).length:0};
 function viewWR(){
   const sents=READ_SENTS.map((s,i)=>'<span class="sn '+s[1]+'"><small>('+(i+1)+')</small>'+esc(s[0])+'</span>').join('');
   let h='<div class="sec"><div><h1>Viết đoạn văn</h1><p class="sub lead">Một đoạn duy nhất, 120–150 từ, khoảng 12 câu, không xuống dòng. Học khung, đọc hai đoạn mẫu, tự viết rồi soát lỗi.</p></div>';
+  h+='<h2>Lộ trình đạt 10/10</h2>'+theoryHTML([
+T('Điểm nằm ở đâu: lấy đủ từng phần',`<table><tr><th>Tiêu chí</th><th>Điểm</th><th>Làm gì để lấy đủ</th></tr>
+<tr><td><b>Structure</b></td><td>3</td><td>Đủ 3 phần trong một khối: câu chủ đề có <i>several reasons</i> (controlling idea) → 3 ý chính có Firstly / Secondly / Thirdly (hoặc Finally) → câu kết bắt đầu bằng In conclusion. Đúng 12 câu theo khung.</td></tr>
+<tr><td><b>Content</b></td><td>4</td><td>Bám sát đề. <b>Mỗi ý chính có một ví dụ cụ thể</b> (ai làm gì, ở đâu), không nói chung chung. Có lời khuyên hoặc quan điểm cá nhân ở câu 9–10 và câu kết.</td></tr>
+<tr><td><b>Language</b></td><td>2</td><td>Dùng đa dạng từ nối (For example, For instance, As a result, Furthermore, Therefore). Có 4–5 cụm từ hay (xem bảng bên dưới). Không lặp từ: câu kết dùng lời khác với câu mở.</td></tr>
+<tr><td><b>Presentation</b></td><td>1</td><td>Một khối liền, không xuống dòng. 120–150 từ (lệch quá 30% là trừ 2 điểm). Chữ sạch, viết hoa đầu câu.</td></tr></table>
+<p class="warn"><b>Mỗi lỗi ngữ pháp trừ 1 điểm, mỗi lỗi từ vựng trừ 0,5.</b> Vì vậy 10/10 đến từ việc <b>viết ít lỗi</b> hơn là viết cao siêu. Một câu đơn giản mà đúng được điểm; một câu phức mà sai thì mất điểm.</p>`),
+T('Quy tắc viết "an toàn" để không mất điểm',`<ul>
+<li><b>Chỉ dùng cấu trúc đã chắc chắn.</b> Thì hiện tại đơn, can / should + V, make / help + người + V (không có to), enjoy + V-ing. Không thử cấu trúc mới trong giờ thi.</li>
+<li><b>Mỗi câu 10–12 từ, một ý.</b> Câu dài dễ sai chủ vị và dễ thừa từ.</li>
+<li><b>Viết xong mỗi câu, đọc lại động từ:</b> chủ ngữ số ít thì động từ có s (it helps), số nhiều thì không (teenagers feel).</li>
+<li><b>Danh từ không đếm được không thêm s:</b> advice, information, scenery, homework, knowledge, music.</li>
+<li><b>Không nối hai câu bằng dấu phẩy.</b> Hết ý thì chấm câu, rồi viết hoa.</li>
+<li><b>Từ nào chưa chắc chính tả thì thay bằng từ dễ hơn</b> (relax thay vì unwind nếu hay viết sai).</li>
+<li><b>Ví dụ phải cụ thể:</b> "playing badminton with friends after school" ăn điểm hơn "doing activities".</li></ul>`),
+T('Quy trình 30 phút khi làm bài',`<ol><li><b>3 phút:</b> đọc đề, gạch chân từ khóa (chủ đề, đối tượng). Chọn đúng 3 ý.</li>
+<li><b>3 phút:</b> viết nháp dàn ý: 3 ý + mỗi ý một ví dụ + một lời khuyên. Chưa viết câu hoàn chỉnh.</li>
+<li><b>17 phút:</b> viết 12 câu vào bài, mỗi câu khoảng một dòng vở. Viết xong câu 12 là dừng.</li>
+<li><b>5 phút:</b> soát theo bảng 10 điểm bên dưới: chủ vị, s/es, dấu phẩy, từ nối, chính tả.</li>
+<li><b>2 phút:</b> đếm dòng (12–13 dòng là đủ) hoặc đếm từ từng dòng; kiểm tra một khối, không xuống dòng.</li></ol>`),
+T('Mẫu câu theo khung 12 câu (dùng được cho mọi đề)',`<div class="tbl"><table><tr><th>Câu</th><th>Mẫu</th></tr>
+<tr><td>1</td><td>Nowadays, many teenagers … for several reasons. / There are several reasons why …</td></tr>
+<tr><td>2</td><td>Firstly, it helps them … (ý 1)</td></tr>
+<tr><td>3</td><td>For example, … (ví dụ cụ thể: hoạt động + với ai / ở đâu)</td></tr>
+<tr><td>4</td><td>As a result, they … (kết quả)</td></tr>
+<tr><td>5</td><td>Secondly, … improves / gives / teaches them … (ý 2)</td></tr>
+<tr><td>6</td><td>For instance, … (ví dụ)</td></tr>
+<tr><td>7</td><td>Thirdly, / Finally, … (ý 3)</td></tr>
+<tr><td>8</td><td>For example, … (ví dụ)</td></tr>
+<tr><td>9</td><td>To … , teenagers should … (lời khuyên)</td></tr>
+<tr><td>10</td><td>Furthermore, they should not / should also … (bổ sung)</td></tr>
+<tr><td>11</td><td>In conclusion, … makes teenagers … (viết lại ý bằng lời khác câu 1)</td></tr>
+<tr><td>12</td><td>Therefore, everyone should … (quan điểm / lời kêu gọi)</td></tr></table></div>`),
+T('Cụm từ ăn điểm (chỉ dùng cái chắc chính tả)',`<table><tr><th>Cụm từ</th><th>Dùng khi</th></tr>
+<tr><td>relieve stress / feel relaxed</td><td>giải tỏa căng thẳng</td></tr>
+<tr><td>improve social skills / make new friends</td><td>lợi ích khi chơi với bạn</td></tr>
+<tr><td>take part in / spend time on / keep in touch with</td><td>hoạt động và sự gắn kết</td></tr>
+<tr><td>be good for our health / look after ourselves</td><td>sức khỏe</td></tr>
+<tr><td>share ideas / learn how to listen / work in a group</td><td>kỹ năng làm việc nhóm</td></tr>
+<tr><td>peaceful / fresh air / close to nature</td><td>cuộc sống ở nông thôn</td></tr>
+<tr><td>a heavy workload / high expectations / peer pressure</td><td>áp lực của thanh thiếu niên</td></tr>
+<tr><td>cope with / deal with / keep up with</td><td>đối phó, theo kịp</td></tr></table>`),
+T('8 lỗi hay mất điểm nhất ở học sinh lớp 8',`<table><tr><th>Sai</th><th>Đúng</th></tr>
+<tr><td>It help us relax.</td><td>It helps us relax. (chủ ngữ it: động từ thêm s)</td></tr>
+<tr><td>It makes us to feel happy.</td><td>It makes us feel happy. (make + O + V, không có to)</td></tr>
+<tr><td>They gets advices from friends.</td><td>They get advice from friends. (they: không s; advice: không đếm được)</td></tr>
+<tr><td>Life in the countryside is peaceful, it is quiet.</td><td>Life in the countryside is peaceful. It is quiet. (không nối hai câu bằng dấu phẩy)</td></tr>
+<tr><td>The life is hard. / in the countryside</td><td>Life is hard. (nghĩa chung, không the); the countryside (có the)</td></tr>
+<tr><td>very wonderful / funny activities</td><td>wonderful (không very); enjoyable activities (funny = hài hước)</td></tr>
+<tr><td>They like play football.</td><td>They like playing football. (like + V-ing)</td></tr>
+<tr><td>Firstly, … Firstly, …</td><td>Firstly, … Secondly, … Thirdly, … (không lặp từ nối)</td></tr></table>
+<p class="stat">Không ai cam đoan được điểm tuyệt đối, vì phần chấm còn do giáo viên quyết định. Nhưng làm đúng các bước trên thì mất điểm chủ yếu chỉ còn do lỗi ngữ pháp nhỏ, và đó là phần bé tự soát được.</p>`)
+],true);
   h+='<h2>1. Cấu trúc đoạn văn</h2><div class="card"><ol><li><b>Mở bài (Topic sentence + controlling idea):</b> giới thiệu chủ đề, nêu ý chủ đạo (several reasons, many benefits...).</li><li><b>Thân bài (Supporting sentences):</b> mỗi ý chính (Firstly, Secondly, Thirdly/Finally) kèm ví dụ (For example, For instance), nối thêm bằng Moreover, Furthermore, In addition, As a result.</li><li><b>Kết bài (Concluding sentence):</b> In conclusion / In short / To sum up, nhắc lại ý bằng lời khác.</li></ol><p><b>Paragraph khác Essay:</b> paragraph là một khối duy nhất gồm cả mở, thân, kết; essay gồm nhiều đoạn tách riêng. <b>Paraphrase:</b> không lặp từ; mở bài viết "I like reading because it is my favourite hobby" thì kết bài viết "Reading is my biggest passion".</p></div>';
   h+='<h2>2. Phân tích đoạn mẫu "The Benefits of Reading Books"</h2><div class="card"><div class="legend" style="margin-bottom:8px"><span style="background:var(--accbg)">Topic sentence</span><span style="background:var(--hl)">Ý chính</span><span style="background:var(--bg);border:1px solid var(--line)">Chi tiết</span><span style="background:var(--okbg)">Câu kết</span></div>'+sents+'</div>'+setsOf('wr').map(setHTML).join('');
   h+='<h2>3. Cụm từ nêu ví dụ</h2><div class="card tbl"><table><tr><th>Cụm từ</th><th>Mức trang trọng</th><th>Ghi chú</th><th>Ví dụ</th></tr>'+CONNECT.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>').join('')+'</table></div>';
