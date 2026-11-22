@@ -1632,7 +1632,68 @@ function lgRun(topic){
   h+='<p class="'+(r.n>=L.lo&&r.n<=L.hi?'ok-t':'bad-t')+'">Số từ: '+r.n+' (yêu cầu '+L.t+').</p><p class="stat">Máy đếm từ nối, ví dụ, từ lặp, lỗi phổ biến nên chỉ là ước lượng, có thể sai lệch 1–2 điểm. Điểm chính thức do giáo viên chấm.</p></div>';
   if(r.qe.length||r.typos.length)h+='<div class="card" style="margin-top:12px"><b>Lỗi phát hiện</b><ul>'+r.qe.map(x=>'<li>'+esc(x)+'</li>').join('')+r.typos.map(x=>'<li>Chính tả: «'+esc(x)+'»</li>').join('')+'</ul></div>';
   if(r.tips.length)h+='<div class="card" style="margin-top:12px"><b>Cách tăng điểm</b><ol>'+r.tips.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></div>';
-  out.innerHTML=h;
+  out.innerHTML=h+lgSuggestHTML(t);
+}
+
+/* ----- Gợi ý sửa lỗi và tránh lặp từ ----- */
+const SYN={friends:['companions','classmates','peers','close ones','them (đại từ)'],friend:['companion','classmate','peer'],time:['moments','hours','period','free hours','it (đại từ)'],help:['support','assist','benefit','contribute to'],helps:['supports','assists','benefits'],good:['beneficial','positive','useful','excellent'],important:['essential','crucial','vital','significant'],like:['enjoy','be fond of','prefer','love'],people:['teenagers','students','individuals','young people'],activities:['hobbies','pastimes','pursuits'],activity:['hobby','pastime'],feel:['experience','sense','become'],make:['let','allow','enable','cause'],many:['numerous','plenty of','various','a variety of'],happy:['delighted','cheerful','content','joyful'],learn:['acquire','pick up','develop','gain'],get:['gain','receive','obtain','earn'],spend:['devote','dedicate','invest'],play:['take part in','join in','practise'],stress:['pressure','tension','worries'],study:['learn','revise','work on'],lesson:['class','subject'],lessons:['classes','subjects'],school:['class','campus'],family:['relatives','parents','loved ones'],life:['daily routine','everyday life','lifestyle'],skills:['abilities','competences','talents'],improve:['enhance','develop','boost','strengthen'],enjoy:['love','take pleasure in','be keen on'],use:['apply','employ','make use of'],'things':['activities','habits','aspects'],thing:['aspect','point','matter'],relax:['unwind','refresh themselves','recharge'],healthy:['good for health','beneficial','nutritious (đồ ăn)'],together:['with one another','side by side','as a group'],country:['rural area','village','countryside'],countryside:['rural area','village','the country']};
+const WEAK=[[/\ba lot of\b/i,'a lot of → numerous / plenty of / a great deal of'],[/\blots of\b/i,'lots of → numerous / plenty of'],[/\bvery good\b/i,'very good → excellent / beneficial / outstanding'],[/\bvery important\b/i,'very important → essential / crucial'],[/\bvery happy\b/i,'very happy → delighted / thrilled'],[/\bvery big\b/i,'very big → huge / enormous'],[/\bvery tired\b/i,'very tired → exhausted'],[/\bnice\b/i,'nice → pleasant / friendly / enjoyable'],[/\bthings?\b/i,'thing(s) → nói cụ thể: activities, habits, hobbies…'],[/\bgood\b/i,'good → beneficial / positive / useful'],[/\bbad\b/i,'bad → harmful / negative / unhealthy'],[/\bget\b/i,'get → gain / receive / obtain / become'],[/\bbig\b/i,'big → large / significant / major'],[/\bI think\b/i,'I think → In my opinion / From my point of view']];
+function fixSent(s){
+  let f=s;const notes=[];
+  const R=(re,fn,why)=>{f=f.replace(re,(...a)=>{const r=typeof fn==='string'?fn:fn(...a);if(r!==a[0])notes.push(why+': «'+a[0].trim()+'» → «'+r.trim()+'»');return r})};
+  const sv=w=>/(s|x|z|ch|sh)$/.test(w)?w+'es':/[^aeiou]y$/.test(w)?w.slice(0,-1)+'ies':w==='have'?'has':w==='do'?'does':w==='go'?'goes':w+'s';
+  const un=w=>w==='has'?'have':w==='does'?'do':w==='goes'?'go':/ies$/.test(w)?w.slice(0,-3)+'y':/(ches|shes|sses|xes|zes)$/.test(w)?w.slice(0,-2):w.slice(0,-1);
+  R(/\b(he|she|it)\s+(help|make|give|take|feel|get|need|want|like|love|enjoy|learn|teach|improve|keep|bring|show|play|have|do|go|become|allow)\b/ig,(m,a,v)=>a+' '+sv(v.toLowerCase()),'Chủ ngữ số ít thêm s/es');
+  R(/\b(they|we|you|teenagers|students|children|friends|parents|kids)\s+(helps|makes|gives|takes|feels|gets|needs|wants|likes|loves|enjoys|learns|teaches|improves|keeps|brings|shows|plays|has|does|goes|becomes|allows)\b/ig,(m,a,v,o)=>/\b(with|of|for|to|and|from|about|by|in|on)\s*$/i.test(f.slice(0,o))?m:a+' '+un(v.toLowerCase()),'Chủ ngữ số nhiều bỏ s');
+  R(/\b(people|teenagers|students|children|friends|parents)\s+is\b/ig,(m,a)=>a+' are','Chủ ngữ số nhiều dùng are');
+  R(/\b(make|makes|made|let|lets)\s+(us|them|him|her|me|you|students|teenagers|children|people|friends)\s+to\s+/ig,(m,a,b)=>a+' '+b+' ','make/let + người + V (bỏ to)');
+  R(/\b(enjoy|enjoys)\s+to\s+(\w+)/ig,(m,a,v)=>a+' '+(v.replace(/e$/,'')+'ing'),'enjoy + V-ing');
+  R(/\b(advice|information|furniture|homework|knowledge|scenery|music)s\b/ig,(m,a)=>a,'Danh từ không đếm được, không thêm s');
+  R(/\bvery\s+(wonderful|delicious|excellent|amazing|terrible|fantastic)\b/ig,(m,a)=>a,'Bỏ very');
+  R(/\bthe life\b/ig,'life','Bỏ the trước life (nghĩa chung)');
+  R(/\bmore\s+(better|easier|bigger|cheaper|healthier)\b/ig,(m,a)=>a,'Bỏ more');
+  R(/\b(dont|cant|doesnt|isnt|wont|didnt|arent)\b/ig,m=>({dont:"don't",cant:"can't",doesnt:"doesn't",isnt:"isn't",wont:"won't",didnt:"didn't",arent:"aren't"})[m.toLowerCase()],'Thêm dấu nháy');
+  R(/\bi\b(?!')/g,'I','Viết hoa I');
+  R(/\ba\s+([aeiou]\w*)/ig,(m,w)=>/^(uni|use|usu|eur|one|once|util|ubi)/i.test(w)?m:'an '+w,'a → an trước nguyên âm');
+  R(/\ban\s+([^aeiou\s]\w*)/ig,(m,w)=>/^(hour|honest|heir|honou?r|mp3)/i.test(w)?m:'a '+w,'an → a trước phụ âm');
+  R(/\b(people|teenagers|students|children|friends|parents)\s+(is|was)\b/ig,(m,a,b)=>a+(b==='is'?' are':' were'),'Chủ ngữ số nhiều');
+  R(/\b(\w+)\s+\1\b/ig,(m,w)=>/^(very|that|had)$/i.test(w)?m:w,'Bỏ từ lặp liền nhau');
+  if(/^[a-z]/.test(f)){f=f[0].toUpperCase()+f.slice(1);notes.push('Viết hoa chữ cái đầu câu')}
+  if(!/[.!?]$/.test(f)){f+='.';notes.push('Thêm dấu chấm cuối câu')}
+  return{fixed:f,notes};
+}
+function lgSuggest(text){
+  const S=sentsOf(text),low=text.toLowerCase(),out={fixes:[],rep:[],weak:[],starts:[],long:[]};
+  S.forEach((s,i)=>{const r=fixSent(s);if(r.notes.length)out.fixes.push({no:i+1,orig:s,fixed:r.fixed,notes:r.notes});
+    if(wc(s)>20)out.long.push({no:i+1,n:wc(s),s:s});
+    WEAK.forEach(w=>{if(w[0].test(s))out.weak.push('Câu '+(i+1)+': '+w[1])})});
+  const words=low.match(/[a-z']+/g)||[],freq={};
+  words.forEach(w=>{if(w.length>3&&!LG_STOP.has(w))freq[w]=(freq[w]||0)+1});
+  Object.keys(freq).filter(w=>freq[w]>=3).sort((a,b)=>freq[b]-freq[a]).slice(0,6).forEach(w=>{
+    const where=S.map((s,i)=>new RegExp('\\b'+w+'\\b','i').test(s)?i+1:0).filter(Boolean);
+    out.rep.push({w:w,c:freq[w],where:where,syn:SYN[w]||SYN[w.replace(/s$/,'')]||[]})});
+  const firsts=S.map(s=>(s.toLowerCase().match(/[a-z']+/)||[''])[0]),cnt={};
+  firsts.forEach(w=>{cnt[w]=(cnt[w]||0)+1});
+  Object.keys(cnt).filter(w=>cnt[w]>=3&&!['first','second','third'].includes(w)).forEach(w=>out.starts.push('Có '+cnt[w]+' câu bắt đầu bằng «'+w+'». Hãy đổi: dùng trạng từ (Moreover, In addition), cụm giới từ (At school, In my experience) hoặc mệnh đề (When…, Because…).'));
+  return out;
+}
+function lgSuggestHTML(text){
+  const g=lgSuggest(text);let h='';
+  if(g.fixes.length){
+    h+='<div class="card" style="margin-top:12px"><b>Sửa lỗi: câu sau khi sửa</b>'+g.fixes.map(x=>'<div style="margin:10px 0;padding-top:8px;border-top:1px solid var(--line)"><div class="stat">Câu '+x.no+'</div><div class="bad-t">'+esc(x.orig)+'</div><div class="ok-t"><b>'+esc(x.fixed)+'</b></div><ul>'+x.notes.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div>').join('')+'</div>';
+  }
+  if(g.rep.length){
+    h+='<div class="card" style="margin-top:12px"><b>Gợi ý tránh lặp từ</b><p class="stat">Cách làm: (1) thay bằng đại từ they / them / it; (2) dùng từ đồng nghĩa; (3) gộp hai câu bằng which / who; (4) bỏ bớt, vì nhiều khi câu vẫn đủ nghĩa.</p><div class="tbl"><table><tr><th>Từ lặp</th><th>Số lần</th><th>Ở câu</th><th>Thay bằng</th></tr>'+g.rep.map(r=>'<tr><td><b>'+esc(r.w)+'</b></td><td>'+r.c+'</td><td>'+r.where.join(', ')+'</td><td>'+(r.syn.length?esc(r.syn.join(' / ')):'dùng đại từ hoặc viết lại câu')+'</td></tr>').join('')+'</table></div><p class="stat">Chỉ nên giữ từ khóa của đề (ví dụ friends, leisure) khoảng 3 lần, còn lại thay bằng cách trên.</p></div>';
+  }
+  if(g.long.length)h+='<div class="card" style="margin-top:12px"><b>Câu quá dài, nên tách</b><ul>'+g.long.map(x=>'<li>Câu '+x.no+' ('+x.n+' từ): '+esc(x.s)+'<br><span class="stat">Gợi ý: tách ở and / which / who thành hai câu ngắn, hoặc bỏ bớt cụm bổ nghĩa.</span></li>').join('')+'</ul></div>';
+  if(g.starts.length)h+='<div class="card" style="margin-top:12px"><b>Câu bắt đầu giống nhau</b><ul>'+g.starts.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+  if(g.weak.length)h+='<div class="card" style="margin-top:12px"><b>Nâng cấp từ vựng</b><ul>'+[...new Set(g.weak)].slice(0,10).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+  if(g.fixes.length){
+    const fx=sentsOf(text).map(s=>fixSent(s).fixed).join(' ');
+    h+='<div class="card" style="margin-top:12px"><b>Đoạn văn sau khi sửa lỗi máy phát hiện được ('+wc(fx)+' từ)</b><p class="para">'+esc(fx)+'</p><p class="stat">Máy chỉ sửa được các lỗi quen thuộc. Em tự đọc lại một lần nữa.</p></div>';
+  }
+  if(!h)h='<p class="ok-t" style="margin-top:12px">Máy không có gợi ý sửa thêm. Hãy dùng bảng soát 10 điểm bên dưới để tự kiểm tra.</p>';
+  return h;
 }
 
 /* ----- Đề thi thử ----- */
