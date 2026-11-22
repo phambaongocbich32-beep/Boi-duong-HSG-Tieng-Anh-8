@@ -1012,6 +1012,56 @@ const PLAN=[
 ['30 phút','Viết đoạn văn','Phân tích đoạn mẫu, thuộc khung 12 câu, tự viết 1 đoạn và soát 10 điểm.'],
 ['30 phút','Đề thi thử','Làm 1 đề 40 câu có đếm giờ, rồi luyện lại câu sai trong Sổ lỗi sai.']];
 
+/* ===== Đề thi thử số 2: chỉ Chuyên đề 1–5, 40 câu mới (không trùng ngân hàng bài tập) ===== */
+const IOA=['in','on','at','X'];
+const EXAM2=[
+/* CĐ1 – Nouns */
+['cd1',mc('Mr. Lam gave us a lot of ___ on how to prepare for the exam.',['advices','advice','an advice','advise'],1,'advice là danh từ không đếm được: không thêm s, không dùng an.')],
+['cd1',mc('Two ___ are sleeping under the big tree.',['deers','deer','deeres','a deer'],1,'deer: số nhiều không đổi.')],
+['cd1',mc('Mathematics ___ one of the hardest subjects for many students.',['are','is','were','be'],1,'Tên môn học tận cùng -s dùng động từ số ít.')],
+['cd1',mc('Which of the following nouns is UNCOUNTABLE?',['suitcase','luggage','bag','wallet'],1,'luggage không đếm được (a piece of luggage); suitcase, bag, wallet đếm được.')],
+['cd1',mc('We bought some new ___ for our living room.',['furnitures','furniture','a furniture','furnitures\''],1,'furniture: không đếm được.')],
+['cd1',fl('There are three ___ on the shelf.','knives','knife → knives (-fe đổi thành -ves).','(knife)')],
+['cd1',fl('She grows many ___ in her garden.','tomatoes','Phụ âm + o: thêm -es.','(tomato)')],
+['cd1',fx('The <b>police is</b> looking for the missing boy.',['police are','the police are'],'the police luôn dùng động từ số nhiều.')],
+/* CĐ2 – Articles */
+['cd2',mc('My sister wants to become ___ astronaut.',['a','an','the','X'],1,'astronaut bắt đầu bằng nguyên âm.')],
+['cd2',mc('___ Netherlands is famous for its tulips.',['A','An','The','X'],2,'Một số tên nước số nhiều dùng the: the Netherlands, the Philippines.')],
+['cd2',mc('She has ___ lunch at school every day.',['a','an','the','X'],3,'Tên bữa ăn: không mạo từ.')],
+['cd2',mc('I saw a boy and a girl. ___ boy was carrying a red bag.',['A','An','The','X'],2,'Nhắc lại lần hai: the boy.')],
+['cd2',mc('Mount Everest is ___ highest mountain in the world.',['a','an','the','X'],2,'So sánh nhất: the highest.')],
+['cd2',fl('He is ___ honest man, so everyone trusts him.','an','honest có h câm: bắt đầu bằng âm nguyên âm.')],
+['cd2',fl('___ elderly need care and respect from the young.','the','the + adj = nhóm người.')],
+['cd2',fx('My uncle works as <b>the engineer</b> in Da Nang.','an engineer','Nghề nghiệp, nhắc lần đầu: an engineer.')],
+/* CĐ3 – Pronouns */
+['cd3',mc('My brother and I did the project by ___.',['ourself','ourselves','themselves','myself'],1,'Chủ ngữ là we (my brother and I): ourselves.')],
+['cd3',mc('Is this book ___? I found it on the table.',['your','you','yours','yourself'],2,'Đứng một mình: đại từ sở hữu yours.')],
+['cd3',mc('The dog wagged ___ tail when it saw me.',['it\'s','its','his','their'],1,'its = của nó (con chó).')],
+['cd3',mc('Lan and Hoa are good friends. I often go shopping with ___.',['they','their','them','theirs'],2,'Sau giới từ with: tân ngữ them.')],
+['cd3',fl('Lan\'s phone is old, but mine is new. → Mine is new, but ___ is old.','hers','Lan\'s phone = hers.')],
+['cd3',fl('She looked at ___ in the mirror and smiled.','herself','Chủ ngữ và tân ngữ cùng một người: herself.')],
+['cd3',fx('<b>Me and my sister</b> are going to visit our grandparents.','my sister and I','Làm chủ ngữ: dùng I, và đặt I sau.')],
+['cd3',fx('The teacher told <b>we</b> to open our books.','us','Tân ngữ của told: us.')],
+/* CĐ4 – Gerunds and Infinitives */
+['cd4',mc('She suggested ___ to the zoo on Sunday.',['to go','going','go','went'],1,'suggest + V-ing.')],
+['cd4',mc('He decided ___ his job and start his own business.',['quitting','quit','to quit','quits'],2,'decide + to V.')],
+['cd4',mc('I am looking forward ___ you at the party.',['to see','seeing','to seeing','see'],2,'look forward to + V-ing (to là giới từ).')],
+['cd4',mc('We stopped ___ some water because we were thirsty.',['to buy','buying','buy','bought'],0,'stop to V: dừng lại để làm việc khác.')],
+['cd4',mc('The room is big enough ___ fifty people.',['hold','holding','to hold','holds'],2,'adj + enough + to V.')],
+['cd4',fl('Would you mind ___ the music down, please?','turning','mind + V-ing.','(turn)')],
+['cd4',fx('My parents do not allow me <b>watching</b> TV late at night.','to watch','allow sb + to V.')],
+['cd4',fx('She is used to <b>get up</b> early every morning.',['getting up','getting up early'],'be used to + V-ing: quen với.')],
+/* CĐ5 – Prepositions */
+['cd5',mc('My birthday is ___ 12th March.',IOA,1,'on + ngày cụ thể.')],
+['cd5',mc('We usually have a big dinner ___ New Year\'s Eve.',IOA,1,'on New Year\'s Eve: một ngày cụ thể.')],
+['cd5',mc('The students are waiting ___ the bus stop.',IOA,2,'at + địa điểm nhỏ.')],
+['cd5',mc('He has lived in Hue ___ he was born.',['for','since','during','from'],1,'since + mệnh đề chỉ mốc thời gian.')],
+['cd5',mc('There is a new bridge ___ the river.',['between','across','among','in'],1,'across: bắc ngang qua.')],
+['cd5',fl('I will finish the report ___ Friday at the latest.','by','by + hạn chót: không muộn hơn thời điểm đó.')],
+['cd5',fx('We arrived <b>to</b> the airport at 6 a.m.',['at','arrived at'],'arrive at + nơi nhỏ (arrive in + thành phố, nước).')],
+['cd5',fx('I am very interested <b>on</b> learning English.','in','interested in.')]
+];
+
 /* ===================== Bộ khung ứng dụng ===================== */
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -1045,6 +1095,7 @@ SETS.forEach(s=>{
   });
   else if(s.type==='cloze')s.blanks.forEach((b,i)=>QI[s.id+'.'+i]={k:'fill',set:s.id,sec:s.sec,src:'cloze',q:'Bài “'+s.title.replace(/^Bài \d+\. /,'')+'”, chỗ trống ('+(i+1)+'): ___',h:'('+b[0]+')',a:b[1],e:b[2]});
 });
+EXAM2.forEach((x,i)=>{QI['e2.'+i]=Object.assign({set:'e2',sec:x[0],src:'exam2'},x[1])});
 const keysOf=s=>s.type==='list'?s.qs.map((_,i)=>s.id+'.'+i):s.type==='sort'?s.items.map((_,i)=>s.id+'.'+i):s.blanks.map((_,i)=>s.id+'.'+i);
 const gradeText=(q,v)=>q.a.some(a=>norm(a)===norm(v));
 const ansHTML=q=>q.k==='mc'?'<b>'+LET[q.a]+'. '+q.o[q.a]+'</b>':'<b>'+esc(q.a[0])+'</b>';
@@ -1187,7 +1238,7 @@ function theoryHTML(list,openFirst){
 /* ===================== Các màn hình ===================== */
 function statSec(sec){
   let n=0,a=0,c=0;
-  Object.keys(QI).forEach(k=>{if(QI[k].sec===sec){n++;const r=ST.res[k];if(r){a++;if(r.ok)c++}}});
+  Object.keys(QI).forEach(k=>{if(QI[k].sec===sec&&QI[k].src!=='exam2'){n++;const r=ST.res[k];if(r){a++;if(r.ok)c++}}});
   return{n,a,c};
 }
 function barHTML(x){return '<div class="bar" role="img" aria-label="Đúng '+x.c+', sai '+(x.a-x.c)+' trên '+x.n+' câu"><i class="g" style="width:'+(x.n?x.c/x.n*100:0)+'%"></i><i class="r" style="width:'+(x.n?(x.a-x.c)/x.n*100:0)+'%"></i></div>'}
@@ -1324,7 +1375,8 @@ let EX=null,TM=null;
 const PLANS={20:[['pa',3],['wf',5],['cd1',2],['cd2',2],['cd3',2],['cd4',2],['cd5',2],['cd6',2]],40:[['pa',6],['wf',10],['cd1',4],['cd2',4],['cd3',4],['cd4',4],['cd5',4],['cd6',4]]};
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startExam(n){
-  const keys=[];
+  if(n==='p2'){const ks=EXAM2.map((_,i)=>'e2.'+i);EX={keys:ks,ans:{},start:Date.now(),end:Date.now()+45*60000,mins:45,done:false,n:ks.length,paper:'p2'};runTimer();return}
+  n=+n;const keys=[];
   PLANS[n].forEach(([sec,m])=>{
     const pool=Object.keys(QI).filter(k=>QI[k].sec===sec&&QI[k].src==='list'&&(QI[k].k==='mc'||QI[k].k==='fill'));
     keys.push(...shuffle(pool).slice(0,m));
@@ -1355,7 +1407,7 @@ function submitExam(){
     ST.res[k]={ok,v};
   });
   EX.c=c;EX.score=Math.round(c/EX.n*100)/10;
-  ST.exam=(ST.exam||[]);ST.exam.push({t:Date.now(),n:EX.n,c,s:EX.score,used:Math.round((Math.min(Date.now(),EX.end)-EX.start)/60000)});
+  ST.exam=(ST.exam||[]);ST.exam.push({p:EX.paper||'',t:Date.now(),n:EX.n,c,s:EX.score,used:Math.round((Math.min(Date.now(),EX.end)-EX.start)/60000)});
   save();updateBadge();EX.by=by;
   if(location.hash.indexOf('#test')===0)route();
 }
@@ -1363,8 +1415,8 @@ function viewTest(){
   if(!EX){
     const hist=(ST.exam||[]).slice(-6).reverse();
     return '<div class="sec"><div><h1>Đề thi thử</h1><p class="sub lead">Câu hỏi được rút ngẫu nhiên từ tất cả phần (phát âm, hình thức từ, 6 chuyên đề), mỗi lần một đề khác. Không hiện đáp án cho đến khi nộp bài.</p></div>'+
-    '<div class="grid"><div class="card"><b>Đề ngắn: 20 câu</b><p class="stat">25 phút. Dùng khi còn ít thời gian.</p><button class="btn pri" data-start="20">Bắt đầu đề 20 câu</button></div><div class="card"><b>Đề đầy đủ: 40 câu</b><p class="stat">50 phút. Mô phỏng một bài thi hoàn chỉnh.</p><button class="btn pri" data-start="40">Bắt đầu đề 40 câu</button></div></div>'+
-    (hist.length?'<h2>Các lần làm gần đây</h2><div class="card"><ul class="hist">'+hist.map(h=>'<li>'+new Date(h.t).toLocaleString('vi-VN')+': <b>'+String(h.s).replace('.',',')+'/10</b> ('+h.c+'/'+h.n+' câu, '+h.used+' phút)</li>').join('')+'</ul></div>':'')+'</div>';
+    '<div class="grid"><div class="card hl"><b>Đề số 2: Chuyên đề 1–5 (cố định)</b><p class="stat">40 câu mới, 8 câu mỗi chuyên đề (danh từ, mạo từ, đại từ, V-ing/to V, giới từ). 45 phút, mọi người làm cùng một đề.</p><button class="btn pri" data-start="p2">Bắt đầu Đề số 2</button></div><div class="card"><b>Đề ngắn: 20 câu</b><p class="stat">25 phút. Dùng khi còn ít thời gian.</p><button class="btn pri" data-start="20">Bắt đầu đề 20 câu</button></div><div class="card"><b>Đề đầy đủ: 40 câu</b><p class="stat">50 phút. Mô phỏng một bài thi hoàn chỉnh.</p><button class="btn pri" data-start="40">Bắt đầu đề 40 câu</button></div></div>'+
+    (hist.length?'<h2>Các lần làm gần đây</h2><div class="card"><ul class="hist">'+hist.map(h=>'<li>'+new Date(h.t).toLocaleString('vi-VN')+(h.p==='p2'?' (Đề số 2)':'')+': <b>'+String(h.s).replace('.',',')+'/10</b> ('+h.c+'/'+h.n+' câu, '+h.used+' phút)</li>').join('')+'</ul></div>':'')+'</div>';
   }
   if(!EX.done){
     let h='<div class="sec"><div class="exam-bar"><div><span class="stat">Thời gian còn lại</span><div class="timer" id="tm">'+fmt(Math.max(0,EX.end-Date.now()))+'</div></div><span id="exCount" class="stat"></span><div class="row"><button class="btn sm" id="exCancel">Hủy đề</button><button class="btn pri" id="exSubmit">Nộp bài</button></div></div><div id="examBody" class="set"><div class="qs">';
@@ -1374,7 +1426,7 @@ function viewTest(){
   }
   let h='<div class="sec"><div class="card hl"><div class="stat">Kết quả</div><div class="big">'+String(EX.score).replace('.',',')+' / 10</div><p>Đúng '+EX.c+'/'+EX.n+' câu. Các câu sai đã được thêm vào Sổ lỗi sai.</p></div>';
   h+='<div class="card tbl"><table><tr><th>Phần</th><th>Đúng</th><th>Tổng</th></tr>'+Object.keys(EX.by).map(s=>'<tr><td>'+SECS[s]+'</td><td>'+EX.by[s][0]+'</td><td>'+EX.by[s][1]+'</td></tr>').join('')+'</table></div>';
-  h+='<div class="row"><button class="btn pri" data-start="'+(EX.n>=40?40:20)+'">Làm đề mới</button><button class="btn" id="exBack">Về màn hình chọn đề</button><a class="btn" style="text-decoration:none;display:inline-flex;align-items:center" href="#wrong">Luyện lại câu sai</a></div><h2>Xem lại bài</h2><div class="set"><div class="qs">';
+  h+='<div class="row"><button class="btn pri" data-start="'+(EX.paper||(EX.n>=40?40:20))+'">'+(EX.paper?'Làm lại đề này':'Làm đề mới')+'</button><button class="btn" id="exBack">Về màn hình chọn đề</button><a class="btn" style="text-decoration:none;display:inline-flex;align-items:center" href="#wrong">Luyện lại câu sai</a></div><h2>Xem lại bài</h2><div class="set"><div class="qs">';
   let no=0;EX.keys.forEach(k=>{no++;h+=qHTML(k,no,{mode:'review',st:{ok:EX.res[k],v:EX.ans[k]}})});
   return h+'</div></div></div>';
 }
@@ -1411,7 +1463,7 @@ window.addEventListener('hashchange',route);
 /* các nút phụ */
 document.addEventListener('click',e=>{
   const t=e.target;let b;
-  if((b=t.closest('[data-start]'))){startExam(+b.dataset.start);route();window.scrollTo(0,0);return}
+  if((b=t.closest('[data-start]'))){startExam(b.dataset.start);route();window.scrollTo(0,0);return}
   if(t.closest('#exSubmit')){submitExam();window.scrollTo(0,0);return}
   if(t.closest('#exCancel')){EX=null;clearInterval(TM);route();return}
   if(t.closest('#exBack')){EX=null;route();return}
