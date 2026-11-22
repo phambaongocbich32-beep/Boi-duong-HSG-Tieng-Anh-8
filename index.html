@@ -11,14 +11,14 @@
 :root{
   --bg:#f2f4f9;--card:#ffffff;--ink:#16213e;--sub:#56637f;--line:#d7deec;
   --acc:#2447c9;--accbg:#e4ebff;--hl:#ffe98f;--ok:#16794f;--okbg:#e2f5ec;--bad:#bf3a2d;--badbg:#fde9e6;--warnbg:#fff4d6;
-  --font:"Be Vietnam Pro","Noto Sans","Segoe UI","Lucida Sans Unicode",system-ui,Arial,sans-serif;
+  --amb:#9a6200;--font:"Be Vietnam Pro","Noto Sans","Segoe UI","Lucida Sans Unicode",system-ui,Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1629;--card:#172038;--ink:#e6ecff;--sub:#a2afd0;--line:#29365a;
-  --acc:#8fb0ff;--accbg:#223562;--hl:#5a4d18;--ok:#6fd6a0;--okbg:#14352a;--bad:#ff8f84;--badbg:#401f1c;--warnbg:#3b3416;color-scheme:dark}}
+  --acc:#8fb0ff;--accbg:#223562;--hl:#5a4d18;--ok:#6fd6a0;--okbg:#14352a;--bad:#ff8f84;--badbg:#401f1c;--warnbg:#3b3416;--amb:#f0c060;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1629;--card:#172038;--ink:#e6ecff;--sub:#a2afd0;--line:#29365a;
-  --acc:#8fb0ff;--accbg:#223562;--hl:#5a4d18;--ok:#6fd6a0;--okbg:#14352a;--bad:#ff8f84;--badbg:#401f1c;--warnbg:#3b3416;color-scheme:dark}
+  --acc:#8fb0ff;--accbg:#223562;--hl:#5a4d18;--ok:#6fd6a0;--okbg:#14352a;--bad:#ff8f84;--badbg:#401f1c;--warnbg:#3b3416;--amb:#f0c060;color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.65;font-size:16px}
@@ -183,6 +183,16 @@ input[type=number]{width:90px}
 @media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
 .srow .fb{margin:0;flex-basis:100%}
 .srow .fbx{flex-basis:100%}
+
+.track{position:relative;height:12px;background:var(--line);border-radius:8px;overflow:hidden}
+.track .fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px 0 0 8px}
+.fill.short{background:var(--amb)}.fill.good{background:var(--ok)}.fill.over{background:var(--bad)}
+.track .zone{position:absolute;top:0;bottom:0;left:66.667%;width:16.667%;border-left:2px solid var(--ink);border-right:2px solid var(--ink);opacity:.45}
+.low-t{color:var(--amb);font-weight:700}
+.bs{margin:12px 0}
+.bs label{display:block;margin-bottom:4px}
+.bi{min-height:60px}
+.bc{margin-top:2px}
 
 </style>
 </head>
@@ -1296,6 +1306,7 @@ function modelHTML(){
   const roles=['topic','main','detail','detail','main','detail','main','detail','main','detail','concl','concl'];
   return MODEL2.map((s,i)=>'<span class="sn '+roles[i]+'"><small>'+(i+1)+'</small>'+esc(s)+'</span>').join('');
 }
+const BUD=[['Câu chủ đề','Nowadays, … for several reasons.',12,16],['Ý chính 1','Firstly, …',9,12],['Ví dụ 1','For example, …',11,14],['Kết quả của ý 1','As a result, …',9,12],['Ý chính 2','Secondly, …',9,12],['Ví dụ 2','For instance, …',11,14],['Ý chính 3','Thirdly, …',9,12],['Ví dụ 3','For example, …',11,14],['Lời khuyên','To …, teenagers should …',11,14],['Bổ sung','Furthermore, …',9,12],['Kết bài','In conclusion, …',12,16],['Câu cuối','Therefore, …',8,11]];
 const wc=t=>{t=t.trim();return t?t.split(/\s+/).length:0};
 function viewWR(){
   const sents=READ_SENTS.map((s,i)=>'<span class="sn '+s[1]+'"><small>('+(i+1)+')</small>'+esc(s[0])+'</span>').join('');
@@ -1306,9 +1317,10 @@ function viewWR(){
   h+='<h2>4. Khung 12 câu</h2><div class="card tbl"><table><tr><td>1</td><td>Câu chủ đề: There are several reasons why… / Nowadays, … for several reasons.</td></tr><tr><td>2–4</td><td>Firstly, ý 1 → For example, ví dụ cụ thể</td></tr><tr><td>5–6</td><td>Secondly, ý 2 → For instance, ví dụ</td></tr><tr><td>7–8</td><td>Thirdly / Finally, ý 3 → For example, ví dụ</td></tr><tr><td>9–10</td><td>To cope with…, teenagers should… Furthermore, …</td></tr><tr><td>11–12</td><td>In conclusion, nhắc lại ý bằng lời khác + quan điểm</td></tr></table></div>';
   h+='<h2>5. Đoạn mẫu: Teenagers &amp; Pressure ('+wc(P.map(p=>typeof p==='string'?p:K[p[0]][0]).join(''))+' từ)</h2><div class="card"><div class="row"><button class="btn sm" id="hideB" aria-pressed="false">Chế độ ẩn cụm (tự kiểm tra)</button><button class="btn sm" id="revB">Hiện tất cả</button></div><div id="para" class="para"></div></div><div id="info" class="info" aria-live="polite">Chạm vào một cụm được tô màu để xem nghĩa và cách thay đơn giản.</div>';
   h+='<h2>6. Đoạn mẫu: Leisure time with friends ('+wc(MODEL2.join(' '))+' từ)</h2><div class="card"><div class="row" style="margin-bottom:8px"><button class="btn sm" id="m2B" aria-pressed="false">Ẩn đoạn (tự viết trước)</button></div><div id="m2">'+modelHTML()+'</div></div>';
-  h+='<h2>7. Tự viết</h2><div class="card"><div class="row"><label for="topic">Đề bài:</label><select id="topic">'+WR_TOPICS.map((t,i)=>'<option value="'+i+'">'+t[0]+'</option>').join('')+'</select></div><p class="stat" id="topicNote" style="margin:6px 0">'+WR_TOPICS[0][1]+'</p><textarea id="ta" placeholder="Write your paragraph here…" aria-label="Khung viết đoạn văn"></textarea><p>Số từ: <b id="cnt">0</b> <span id="st"></span> · Số câu: <b id="sc">0</b></p><ul class="auto" id="auto"></ul></div>';
-  h+='<h2>8. Bảng soát lỗi 10 điểm</h2><div class="card chk" id="chk"></div><p class="stat" id="prog"></p>';
-  h+='<h2>9. Tiêu chí chấm và máy tính điểm</h2><div class="card"><ul><li><b>Structure (3):</b> đủ mở, thân, kết; bố cục mạch lạc.</li><li><b>Content (4):</b> đúng chủ đề, ý rõ, có dẫn chứng, có quan điểm.</li><li><b>Language (2):</b> ngữ pháp đúng, câu đa dạng, từ nối hợp lý, từ vựng phong phú.</li><li><b>Presentation (1):</b> một đoạn liền, đúng độ dài, sạch đẹp.</li></ul><p>Trừ điểm: mỗi lỗi ngữ pháp/cấu trúc −1; mỗi lỗi từ vựng −0,5; thiếu hoặc thừa quá 30% số từ −2.</p><div class="calc"><label>Structure (0–3)<input type="number" id="c1" min="0" max="3" step="0.5" value="3"></label><label>Content (0–4)<input type="number" id="c2" min="0" max="4" step="0.5" value="3"></label><label>Language (0–2)<input type="number" id="c3" min="0" max="2" step="0.5" value="1.5"></label><label>Presentation (0–1)<input type="number" id="c4" min="0" max="1" step="0.5" value="1"></label><label>Số lỗi ngữ pháp<input type="number" id="c5" min="0" value="0"></label><label>Số lỗi từ vựng<input type="number" id="c6" min="0" value="0"></label><label>Lệch quá 30% số từ?<select id="c7"><option value="0">Không</option><option value="1">Có (−2)</option></select></label></div><p style="margin-top:10px">Điểm dự kiến: <span class="big" id="calcOut">0</span> / 10</p></div></div>';
+  h+='<h2>7. Viết từng câu theo ngân sách từ</h2><div class="card hl"><b>Cách canh đủ 120–150 từ</b><ul><li>Đoạn có <b>12 câu</b>, mỗi câu khoảng <b>10–12 từ</b>. Viết đủ 12 câu, mỗi câu trong khung từ, là đoạn tự đạt 120–150 từ.</li><li>Viết xong câu 12 thì <b>dừng</b>. Không thêm ý mới, vì thừa là do viết quá 12 câu hoặc câu quá dài (trên 16 từ).</li><li>Trên giấy: một dòng vở viết được khoảng 10–12 từ, nên đoạn chiếm khoảng <b>12–13 dòng</b>. Đếm dòng để biết mình đã viết bao nhiêu.</li><li>Cần cắt bớt: bỏ very, really, so, a lot of; gộp hai câu ví dụ thành một; bỏ cụm "and so on", "in my opinion".</li></ul></div><div class="card" id="bld"><div class="exam-bar" style="position:static;margin-bottom:8px"><div><span class="stat">Tổng số từ (mục tiêu 120–150)</span><div class="timer" id="btot">0</div></div><div style="flex:1;min-width:160px"><div class="track"><i class="fill" id="bfill"></i><i class="zone"></i></div><span class="stat" id="bmsg"></span></div></div>'+BUD.map((b,i)=>'<div class="bs"><label for="b'+i+'"><b>Câu '+(i+1)+': '+b[0]+'</b> <span class="hint">mở đầu bằng '+b[1]+'</span></label><textarea id="b'+i+'" class="bi" rows="2" aria-label="Câu '+(i+1)+'"></textarea><div class="bc stat" id="bc'+i+'">0 từ · cần '+b[2]+'–'+b[3]+'</div></div>').join('')+'<div class="row"><button class="btn pri" id="bJoin">Ghép thành đoạn</button><button class="btn" id="bCopy">Chép sang khung Tự viết</button><button class="btn sm" id="bClr">Xóa hết</button></div><p id="bOut" class="para" style="margin-top:10px;white-space:pre-wrap"></p></div>';
+  h+='<h2>8. Tự viết</h2><div class="card"><div class="row"><label for="topic">Đề bài:</label><select id="topic">'+WR_TOPICS.map((t,i)=>'<option value="'+i+'">'+t[0]+'</option>').join('')+'</select></div><p class="stat" id="topicNote" style="margin:6px 0">'+WR_TOPICS[0][1]+'</p><textarea id="ta" placeholder="Write your paragraph here…" aria-label="Khung viết đoạn văn"></textarea><div class="track" style="margin-top:8px"><i class="fill" id="fill"></i><i class="zone"></i></div><p>Số từ: <b id="cnt">0</b> <span id="st"></span> · Số câu: <b id="sc">0</b></p><p id="longs" class="stat"></p><ul class="auto" id="auto"></ul></div>';
+  h+='<h2>9. Bảng soát lỗi 10 điểm</h2><div class="card chk" id="chk"></div><p class="stat" id="prog"></p>';
+  h+='<h2>10. Tiêu chí chấm và máy tính điểm</h2><div class="card"><ul><li><b>Structure (3):</b> đủ mở, thân, kết; bố cục mạch lạc.</li><li><b>Content (4):</b> đúng chủ đề, ý rõ, có dẫn chứng, có quan điểm.</li><li><b>Language (2):</b> ngữ pháp đúng, câu đa dạng, từ nối hợp lý, từ vựng phong phú.</li><li><b>Presentation (1):</b> một đoạn liền, đúng độ dài, sạch đẹp.</li></ul><p>Trừ điểm: mỗi lỗi ngữ pháp/cấu trúc −1; mỗi lỗi từ vựng −0,5; thiếu hoặc thừa quá 30% số từ −2.</p><div class="calc"><label>Structure (0–3)<input type="number" id="c1" min="0" max="3" step="0.5" value="3"></label><label>Content (0–4)<input type="number" id="c2" min="0" max="4" step="0.5" value="3"></label><label>Language (0–2)<input type="number" id="c3" min="0" max="2" step="0.5" value="1.5"></label><label>Presentation (0–1)<input type="number" id="c4" min="0" max="1" step="0.5" value="1"></label><label>Số lỗi ngữ pháp<input type="number" id="c5" min="0" value="0"></label><label>Số lỗi từ vựng<input type="number" id="c6" min="0" value="0"></label><label>Lệch quá 30% số từ?<select id="c7"><option value="0">Không</option><option value="1">Có (−2)</option></select></label></div><p style="margin-top:10px">Điểm dự kiến: <span class="big" id="calcOut">0</span> / 10</p></div></div>';
   return h;
 }
 function initWR(){
@@ -1335,7 +1347,10 @@ function initWR(){
     else if(n<120){st.textContent='(cần thêm '+(120-n)+' từ)';st.className='bad-t'}
     else if(n<=150){st.textContent='(đạt 120–150 ✓)';st.className='ok-t'}
     else{st.textContent='(thừa '+(n-150)+' từ, cần cắt)';st.className='bad-t'}
-    const sents=t.split(/[.!?]+(?:\s|$)/).filter(x=>x.trim()).length;$('#sc').textContent=sents;
+    const sl=t.split(/(?<=[.!?])\s+/).filter(x=>x.trim());const sents=sl.length;$('#sc').textContent=sents;
+    const f=$('#fill');f.style.width=Math.min(100,n/180*100)+'%';f.className='fill '+(n>150?'over':n>=120?'good':'short');
+    const lg=sl.map((x,i)=>[i+1,wc(x)]).filter(x=>x[1]>16);
+    $('#longs').innerHTML=(n&&sents>12?'<span class="bad-t">Đã viết '+sents+' câu, chỉ nên 12 câu. </span>':'')+(lg.length?'Câu quá dài (trên 16 từ): '+lg.map(x=>'câu '+x[0]+' ('+x[1]+' từ)').join(', ')+'. Hãy cắt ngắn.':'');
     const has=r=>r.test(t);
     const items=[
       [n>=120&&n<=150,'Độ dài 120–150 từ'],
@@ -1351,6 +1366,26 @@ function initWR(){
   ta.addEventListener('input',()=>{ST.draft=ST.draft||{};ST.draft[topic.value]=ta.value;save();upd()});
   topic.addEventListener('change',()=>{$('#topicNote').textContent=WR_TOPICS[topic.value][1];load_()});
   load_();
+  /* viết từng câu */
+  const bi=$$('.bi');
+  function bUpd(){
+    let tot=0;
+    bi.forEach((el,i)=>{
+      const n=wc(el.value),b=BUD[i];tot+=n;const c=$('#bc'+i);
+      c.textContent=n+' từ · cần '+b[2]+'–'+b[3]+(n&&n<b[2]?' (thêm '+(b[2]-n)+')':n>b[3]?' (bớt '+(n-b[3])+')':n?' ✓':'');
+      c.className='bc stat '+(n===0?'':n>b[3]?'bad-t':n<b[2]?'low-t':'ok-t');
+    });
+    $('#btot').textContent=tot;
+    const f=$('#bfill');f.style.width=Math.min(100,tot/180*100)+'%';f.className='fill '+(tot>150?'over':tot>=120?'good':'short');
+    $('#bmsg').textContent=tot===0?'':tot<120?'Còn thiếu '+(120-tot)+' từ.':tot<=150?'Đạt 120–150 từ.':'Thừa '+(tot-150)+' từ, hãy cắt các câu đang đỏ.';
+  }
+  const bd=(ST.draft&&ST.draft.b)||[];
+  bi.forEach((el,i)=>{el.value=bd[i]||'';el.addEventListener('input',()=>{ST.draft=ST.draft||{};ST.draft.b=bi.map(x=>x.value);save();bUpd()})});
+  bUpd();
+  const joined=()=>bi.map(x=>x.value.trim().replace(/\s+/g,' ')).filter(Boolean).join(' ');
+  $('#bJoin').onclick=()=>{const j=joined();$('#bOut').textContent=j?j+'\n\n('+wc(j)+' từ)':'Chưa có câu nào.'};
+  $('#bCopy').onclick=()=>{const j=joined();if(!j)return;ta.value=j;ST.draft=ST.draft||{};ST.draft[topic.value]=j;save();upd();ta.scrollIntoView({block:'center'})};
+  $('#bClr').onclick=()=>{bi.forEach(x=>x.value='');ST.draft=ST.draft||{};ST.draft.b=[];save();bUpd();$('#bOut').textContent=''};
   /* checklist */
   const box=$('#chk');
   CHK.forEach((t,i)=>{
