@@ -194,6 +194,8 @@ input[type=number]{width:90px}
 .bi{min-height:60px}
 .bc{margin-top:2px}
 
+.sp-s{cursor:pointer;border-radius:4px;padding:1px 2px}.sp-s:hover{background:var(--accbg)}.sp-s.on{background:var(--hl)}.spq{white-space:pre-line;font-weight:600;margin:6px 0}.sp-ta{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);margin:8px 0}.sp-par{line-height:1.8}
+
 </style>
 </head>
 <body>
@@ -1082,6 +1084,331 @@ const EXAM2=[
 ['cd5',fx('I am very interested <b>on</b> learning English.','in','interested in.')]
 ];
 
+/* ===== Speaking: IELTS và VSTEP B2 ===== */
+const SP_PHRASES=[
+["Well, let me think for a moment.","Để mình nghĩ một chút (câu câu giờ)"],
+["That's an interesting question.","Câu hỏi thú vị đấy"],
+["In my opinion, / I'd say that…","Theo mình… (nêu ý kiến)"],
+["The main reason is that…","Lý do chính là…"],
+["For example, / For instance, …","Ví dụ…"],
+["What's more, / Besides, …","Hơn nữa…"],
+["On the other hand, …","Mặt khác…"],
+["However, / That said, …","Tuy nhiên…"],
+["As a result, …","Vì vậy…"],
+["I would rather… than…","Mình thích… hơn…"],
+["All in all, / To sum up, …","Tóm lại…"],
+["What I mean is…","Ý mình là… (nói lại cho rõ)"]];
+const SPK={
+ielts1:{
+ title:"IELTS Speaking Part 1: Hỏi đáp về bản thân",
+ time:"4–5 phút. Giám khảo hỏi 3 chủ đề quen thuộc (free time, friends, hometown, school…), mỗi chủ đề 3–4 câu.",
+ steps:[
+  "Trả lời trực tiếp ngay câu đầu tiên (Yes / No / I usually…), đừng im lặng quá 2 giây.",
+  "Công thức A-R-E: <b>Answer</b> (trả lời) → <b>Reason</b> (vì sao) → <b>Example</b> (ví dụ ngắn). Mỗi câu trả lời 2–4 câu, khoảng 20–40 từ.",
+  "Không trả lời một từ (Yes. / No.). Cũng không kể quá dài, vì giám khảo sẽ ngắt để hỏi câu tiếp.",
+  "Dùng thì đúng: thói quen dùng hiện tại đơn (I usually…), chuyện đã qua dùng quá khứ (Last weekend, I…).",
+  "Nếu không nghe rõ, nói: Sorry, could you repeat that, please?"],
+ mistakes:["Trả lời quá ngắn: Yes, I like it.","Học thuộc lòng một đoạn dài, nói như đọc.","Quên chia động từ: My friend like football → likes.","Lặp mãi từ very good, nice, like."],
+ items:[
+ {h:"Free time",q:"What do you usually do in your free time?",a:"In my free time, I usually play badminton with my friends or read comic books. I like badminton because it keeps me fit and helps me relax after school. For example, last weekend we played for two hours and I felt great afterward."},
+ {h:"Free time",q:"Do you prefer spending your free time alone or with other people?",a:"I prefer spending time with other people, especially my close friends. When we are together, we can share stories and laugh a lot, so I never feel bored. That said, I sometimes enjoy being alone to read a book and recharge."},
+ {h:"Free time",q:"Has the way you spend your free time changed since you were younger?",a:"Yes, it has changed quite a lot. When I was younger, I mostly watched cartoons and played with toys at home. Now I prefer sports and outdoor activities because they are healthier and more fun with friends."},
+ {h:"Friends",q:"Do you have many friends?",a:"I do not have a huge circle, but I have about five close friends. We have known each other since primary school, so we understand each other very well. We often study and play sports together."},
+ {h:"Friends",q:"What do you like doing with your friends?",a:"We enjoy playing badminton, going for walks in the park and sometimes cooking simple meals together. It is great because we can talk about our problems and support each other. After that, I always feel more confident and less stressed."},
+ {h:"Friends",q:"How do you keep in touch with friends who live far away?",a:"I usually send messages or make video calls at the weekend. It is not exactly the same as meeting face to face, but it helps us stay close. Sometimes we also share photos and funny stories online."},
+ {h:"Hometown and countryside",q:"Can you tell me about your hometown?",a:"My hometown is a peaceful town surrounded by green fields and small hills. People there are friendly, and life is slower than in a big city. I love going back there during the holidays."},
+ {h:"Hometown and countryside",q:"What do you like most about living in the countryside?",a:"What I like most is the fresh air and the quiet atmosphere. Everyone knows each other, so neighbors often help one another. For example, during harvest time the whole village works together, which I find very warm and friendly."},
+ {h:"Hometown and countryside",q:"Would you like to live in a city in the future?",a:"Maybe for a few years, because cities offer better schools and more job opportunities. However, I would like to come back to the countryside later, since it is better for my health and for my family."},
+ {h:"Teenagers and school",q:"What is the hardest thing about being a teenager?",a:"I think the hardest thing is dealing with pressure from schoolwork and expectations. Teenagers have many exams, and sometimes they feel tired and stressed. Talking to friends and playing sports helps me handle it."},
+ {h:"Teenagers and school",q:"How do you manage your time between study and hobbies?",a:"I make a simple timetable. I do my homework first, and then I spend about an hour on my hobbies. This way, I can still relax without falling behind in my lessons."},
+ {h:"Teenagers and school",q:"Do you use social networks?",a:"Yes, but only for around thirty minutes a day. I use them to chat with classmates and watch short educational videos. I try not to overuse them because they can waste a lot of time."}]},
+ielts2:{
+ title:"IELTS Speaking Part 2: Nói một mình theo thẻ gợi ý",
+ time:"Chuẩn bị 1 phút (được ghi chú), nói liên tục 1–2 phút. Cuối bài giám khảo có thể hỏi thêm 1–2 câu.",
+ steps:[
+  "Trong 1 phút chuẩn bị, chỉ ghi <b>từ khóa</b> cho từng ý trong thẻ (không viết câu dài).",
+  "Đi theo thứ tự 4 gạch đầu dòng của thẻ. Mỗi ý nói 2–3 câu, thêm cảm xúc ở cuối.",
+  "Khung đề xuất: <b>Mở</b> (I'd like to talk about…) → <b>What/Who</b> → <b>When/Where</b> → <b>Chi tiết + ví dụ</b> → <b>Vì sao quan trọng / cảm xúc</b> → <b>Kết</b> (All in all…).",
+  "Mục tiêu nói đủ 1,5–2 phút, khoảng 150–190 từ. Nếu hết ý, kể thêm một ví dụ cụ thể.",
+  "Nói chậm, rõ. Mắc lỗi thì sửa nhanh rồi nói tiếp, đừng dừng lại xin lỗi."],
+ mistakes:["Chỉ trả lời 2 trên 4 ý của thẻ.","Nói dưới 1 phút rồi dừng.","Ghi chú thành câu dài nên chỉ biết đọc.","Dùng toàn thì hiện tại, quên thì quá khứ khi kể chuyện."],
+ timer:true,
+ items:[
+ {h:"Cue card 1: Hobby",q:"Describe a hobby or activity you enjoy doing in your free time.\nYou should say:\n• what it is\n• when and where you do it\n• who you do it with\nand explain why you enjoy it.",hint:"Gợi ý ghi chú: badminton – Saturday, sports hall – 3 friends – fit, relax, teamwork",a:"I'd like to talk about playing badminton, which is my favorite free time activity. I usually play it on Saturday afternoons at the sports hall near my house, and sometimes after school in the yard. I play with three close friends from my class. We started two years ago, after our PE teacher showed us the basic rules, and we have been addicted ever since. First of all, it helps me stay fit and gives me more energy for my lessons. Secondly, it is a great chance to chat with my friends and forget about exam stress. For example, last month we held a small tournament, and although I lost in the final, I laughed so much that my worries disappeared. Besides, playing in a team teaches me to cooperate and stay calm under pressure. All in all, badminton is not just a sport for me. It is a way to relax, make memories and build friendships."},
+ {h:"Cue card 2: A good friend",q:"Describe a good friend of yours.\nYou should say:\n• who this person is\n• how you met\n• what you do together\nand explain why this person is important to you.",hint:"Gợi ý ghi chú: Minh – grade 6, English class – football, revise – honest, helpful",a:"I'm going to describe my best friend, Minh. We met in grade six, when we were seated next to each other in an English class. At first he was shy, but we soon discovered that we both love football and comics, so we became close. Nowadays we usually walk home together, revise for tests and play football at the weekend. What I admire most about Minh is that he is honest and always willing to help. For instance, when I failed a math test last term, he stayed after school to explain the lesson to me patiently. Because of him, I improved my grades and felt much more confident. He also makes me laugh when I am stressed. To sum up, Minh is important to me because he supports me in good times and bad times, and I hope our friendship will last for many years."},
+ {h:"Cue card 3: A place in the countryside",q:"Describe a place in the countryside that you have visited.\nYou should say:\n• where it is\n• when you went there\n• what you did there\nand explain why you remember it.",hint:"Gợi ý ghi chú: grandparents' village – last summer, a week – fishing, kites – peaceful, friendly",a:"I'd like to talk about my grandparents' village, which is about sixty kilometers from my city. I went there last summer and stayed for a week. The village is surrounded by rice fields, and a small river runs through it. During my stay, I helped my grandfather feed the buffaloes, went fishing with my cousins and flew kites in the evening. I also joined my grandmother in cooking meals with fresh vegetables from the garden. I remember this trip clearly because life there was so peaceful compared with the city. There was no traffic noise, the air was fresh and the neighbors were very friendly. For example, one evening everyone shared fruit and told stories under the big tree. It made me realize that simple things can bring a lot of happiness. That is why I want to visit again next summer."},
+ {h:"Cue card 4: Feeling under pressure",q:"Describe a time when you felt under pressure.\nYou should say:\n• when it happened\n• what caused it\n• how you dealt with it\nand explain how you felt afterwards.",hint:"Gợi ý ghi chú: midterm exams – 6 subjects, contest – timetable, talk to mom, sports – proud, relieved",a:"A time I felt under pressure was last semester, before the midterm exams. I had to revise six subjects while also practicing for a school English contest. Because of that, I slept late and felt tired and worried every day. At first, I tried to do everything at once, but it did not work. Then I talked to my mother, who advised me to make a timetable and take short breaks. I also played badminton twice a week to clear my mind. Little by little, I felt calmer and could focus better. In the end, I got good marks and even won second prize in the contest. Afterwards I felt proud and relieved, and I learned that planning and talking to people I trust can reduce stress a lot."}]},
+ielts3:{
+ title:"IELTS Speaking Part 3: Thảo luận chuyên sâu",
+ time:"4–5 phút. Giám khảo hỏi các câu trừu tượng, liên quan đến chủ đề Part 2 (ý kiến, so sánh, nguyên nhân, dự đoán).",
+ steps:[
+  "Công thức <b>P-E-E-L</b>: <b>P</b>oint (nêu quan điểm) → <b>E</b>xplain (giải thích) → <b>E</b>xample (ví dụ) → <b>L</b>ink (kết nối, đối lập). Mỗi câu trả lời 3–5 câu, 40–70 từ.",
+  "Nói về <b>người ta nói chung</b> (many people, teenagers), không kể chuyện riêng mình như Part 1.",
+  "Dùng cấu trúc so sánh và đối lập: however, in contrast, whereas, although.",
+  "Câu hỏi khó thì câu giờ bằng That's an interesting question, I haven't thought about it much, but I'd say…",
+  "Có thể nêu hai mặt (advantages / disadvantages) rồi chốt quan điểm của mình."],
+ mistakes:["Trả lời bằng chuyện cá nhân thay vì ý kiến chung.","Chỉ nói I think… rồi dừng, thiếu lý do.","Dùng đại từ không rõ (they, it) khiến ý lộn xộn.","Quên mạo từ và số nhiều: teenager has → teenagers have."],
+ items:[
+ {h:"Leisure",q:"Why do some people prefer outdoor activities to indoor ones?",a:"I think it is because outdoor activities are good for both body and mind. People can breathe fresh air, exercise and meet others. In contrast, indoor activities like gaming can be fun, but they often keep people sitting for hours, which is not healthy."},
+ {h:"Leisure",q:"Do you think young people today have enough free time?",a:"Not really. Many students attend extra classes and have a lot of homework, so they have little time left to relax. As a result, they may feel stressed and tired. I believe schools should reduce homework so that teenagers can enjoy their hobbies and rest."},
+ {h:"Friendship",q:"How important is it for teenagers to have close friends?",a:"I think it is very important. Close friends listen to us and give advice when we face difficulties. For example, if a student fails an exam, his friends can encourage him to try again. Without friends, teenagers may feel lonely and lose confidence."},
+ {h:"Friendship",q:"Is it better to have a few close friends or many casual friends?",a:"In my opinion, a few close friends are better. Although many casual friends can make you popular, they may not support you when you need help. Close friends, on the other hand, are more trustworthy and understand you well."},
+ {h:"Countryside and city",q:"What are the advantages and disadvantages of living in the countryside?",a:"The main advantages are fresh air, a peaceful life and a strong community. However, the countryside usually has fewer schools, hospitals and job opportunities. That is why many young people move to cities, although some of them return later."},
+ {h:"Countryside and city",q:"Why do many young people leave the countryside for the city?",a:"Mostly for education and better jobs. Cities have more universities and companies, so young people expect a higher income there. Another reason is entertainment, because cities offer cinemas, shopping malls and many other activities."},
+ {h:"Teenagers and pressure",q:"What causes pressure for teenagers today?",a:"There are several causes, such as exams, expectations from parents and comparison with friends on social media. If the pressure is too high, teenagers may lose sleep and confidence. Therefore, adults should listen to them instead of only asking for good marks."},
+ {h:"Teenagers and pressure",q:"How can teenagers deal with stress?",a:"They can do sports, share their problems with family or friends and plan their time carefully. Schools can also help by offering counselling and organizing relaxing activities. In my view, talking openly about stress is the most effective way."}]},
+v1:{
+ title:"VSTEP B2 Speaking Part 1: Social interaction (tương tác xã hội)",
+ time:"Khoảng 3 phút. Giám khảo hỏi 2 chủ đề quen thuộc, mỗi chủ đề 3 câu về bản thân, sở thích, thói quen.",
+ steps:[
+  "Trả lời đầy đủ 2–4 câu mỗi câu hỏi: nêu ý chính, lý do, ví dụ ngắn.",
+  "Giọng tự nhiên, nhìn giám khảo, có thể dùng từ nối nhẹ: Well, Actually, To be honest.",
+  "Dùng đa dạng thì và cấu trúc: hiện tại đơn, quá khứ đơn, tương lai (I'm going to…), câu có because / although.",
+  "Tránh lặp lại đúng từ trong câu hỏi, hãy diễn đạt lại bằng từ khác."],
+ mistakes:["Trả lời một câu đơn.","Nói lan man sang chuyện khác.","Phát âm cuối từ bị nuốt: stress, friends, helps.","Nhấn sai âm tiết ở từ dài: im-POR-tant, com-mu-ni-CA-tion."],
+ items:[
+ {h:"Topic: Hobbies",q:"1. What hobbies do you have?\n2. How often do you do it?\n3. Do you think hobbies are important for teenagers?",a:"I have a few hobbies, but my favorite one is playing badminton. I play it about twice a week, usually at the weekend with my friends. I think hobbies are very important for teenagers because they help us relax after stressful school days. Besides, we can learn new skills and make new friends through them."},
+ {h:"Topic: Hobbies",q:"4. Did you have the same hobbies when you were a child?\n5. Would you like to try any new hobby in the future?",a:"Not exactly. When I was a child, I loved drawing and watching cartoons, but now I prefer sports. In the future, I would like to learn how to play the guitar because music makes me feel happy and calm."},
+ {h:"Topic: Hometown",q:"1. Where do you live now?\n2. What do you like about your area?\n3. Is there anything you would like to change?",a:"I live in a small town near the river. What I like most is that it is quiet and the people are friendly. If I could change one thing, I would build more parks and libraries, so young people would have more places to study and relax."},
+ {h:"Topic: Hometown",q:"4. How has your hometown changed in recent years?\n5. Would you recommend it to tourists?",a:"It has changed quite a lot. There are more shops and better roads, and many families now have fast internet. I would definitely recommend it to tourists who love nature, because they can enjoy fresh air, local food and beautiful scenery."}]},
+v2:{
+ title:"VSTEP B2 Speaking Part 2: Solution discussion (thảo luận giải pháp)",
+ time:"Khoảng 4 phút, gồm 1 phút chuẩn bị. Đề cho một tình huống và 3 giải pháp, em chọn giải pháp tốt nhất và giải thích.",
+ steps:[
+  "Mở bài: nhắc lại tình huống (In this situation, …), nói sẽ chọn phương án nào.",
+  "Giải thích vì sao chọn: 2 lý do, mỗi lý do có ví dụ hoặc hệ quả.",
+  "Nói vì sao <b>không chọn</b> hai phương án còn lại (mỗi phương án 1–2 câu, nêu điểm yếu).",
+  "Kết: chốt lại lựa chọn bằng câu All things considered, I believe option … is the best.",
+  "Cấu trúc đề xuất: tình huống → chọn → 2 lý do → loại hai phương án kia → kết."],
+ mistakes:["Chỉ mô tả cả ba phương án mà không chọn.","Chọn nhưng không giải thích rõ.","Quên nêu vì sao loại hai phương án còn lại.","Dùng sai cấu trúc so sánh: more better, more cheaper."],
+ timer:true,
+ items:[
+ {h:"Situation 1: End-of-term activity",q:"Your school wants to organize a leisure activity for students at the end of the term. There are three options:\nA. a picnic in the countryside\nB. a sports tournament\nC. a movie day at school\nWhich option is the best and why?",hint:"Gợi ý: chọn A, lý do: gần thiên nhiên và gắn kết bạn bè; B chỉ hợp người giỏi thể thao; C ít vận động, giống ngày học.",a:"In my opinion, the best option is a picnic in the countryside. First of all, it gives students a chance to breathe fresh air and escape from the pressure of exams. Secondly, it helps classmates become closer, because they can play games, cook and chat together. For example, when my class went on a picnic last year, even shy students joined in and made new friends. As for the sports tournament, it is exciting, but only students who are good at sports can really enjoy it, and some may feel left out. The movie day sounds relaxing, but students would sit for hours in a room that looks like their classroom, so it is not special enough. All things considered, I believe the picnic is the best choice."},
+ {h:"Situation 2: Reducing stress",q:"A friend of yours feels stressed because of schoolwork. Here are three ways to help:\nA. doing sports regularly\nB. talking to parents or friends\nC. listening to music and taking a break\nWhich one is the best?",hint:"Gợi ý: chọn B, lý do: giải quyết gốc vấn đề; A, C chỉ tạm thời hoặc cần thời gian.",a:"I think the best solution is talking to parents or friends. To begin with, when we share our worries, we feel understood, and the problem often seems smaller. Furthermore, parents and friends can give practical advice, such as how to make a study plan. For instance, my friend was very worried before the exams, but after talking to her older sister, she felt much calmer. Doing sports is good for health, but it needs time and does not solve the real problem. Listening to music can help for a short time, yet the stress comes back when the work is still there. Therefore, I would choose talking to people we trust."}]},
+v3:{
+ title:"VSTEP B2 Speaking Part 3: Topic development (phát triển chủ đề)",
+ time:"Khoảng 5 phút, gồm 1 phút chuẩn bị. Em nói khoảng 2 phút về một chủ đề với các ý gợi ý, sau đó trả lời 1–2 câu hỏi thêm.",
+ steps:[
+  "Dùng sơ đồ ý (mind map) đề cho. Chọn 2–3 ý, không cần nói hết.",
+  "Cấu trúc: <b>Mở</b> (nêu chủ đề và quan điểm) → <b>Ý 1 + ví dụ</b> → <b>Ý 2 + ví dụ</b> → <b>Ý đối lập / giải pháp</b> → <b>Kết</b>.",
+  "Nói khoảng 2 phút (khoảng 180–220 từ). Dùng từ nối: Firstly, In addition, However, Therefore.",
+  "Câu hỏi thêm: trả lời bằng PEEL (Point, Explain, Example, Link) trong 3–4 câu.",
+  "Giữ tốc độ đều, không đọc ghi chú."],
+ mistakes:["Nói lan man, thiếu cấu trúc rõ.","Chỉ liệt kê ý mà không giải thích.","Quá phụ thuộc vào ghi chú, ít nhìn giám khảo.","Câu hỏi thêm trả lời quá ngắn."],
+ timer:true,
+ items:[
+ {h:"Topic 1: Outdoor activities for teenagers",q:"Should teenagers spend more time on outdoor activities?\nIdeas: health – friendship – less screen time",a:"I strongly believe that teenagers should spend more time on outdoor activities. Firstly, outdoor activities are good for health. When teenagers play sports or go cycling, they stay fit and sleep better. In addition, they help young people build friendships. For example, when my friends and I play football after school, we learn to cooperate and trust each other. Another benefit is that teenagers spend less time looking at screens. Nowadays many students play games or scroll through social networks for hours, which makes them tired and less creative. However, some students have too much homework, so schools should organize more outdoor activities during school time. In conclusion, outdoor activities bring both physical and mental benefits, and parents and schools should encourage them.\n\nFollow-up: What outdoor activities are popular in your area?\nIn my area, many people go jogging in the park in the morning, and young people play football or badminton in the evening. At weekends, some families go cycling along the river. These activities are cheap and good for health."},
+ {h:"Topic 2: Life in the countryside",q:"Is life in the countryside better than life in the city?\nIdeas: environment – community – opportunities",a:"In my opinion, life in the countryside has more advantages than life in the city, especially for children and old people. To begin with, the environment is cleaner. The air is fresh, there is less noise and people can live close to nature. Moreover, the community is stronger. Neighbors know each other and often help one another, which makes people feel safe. For instance, when a family in my grandparents' village needs help, everyone comes to support them. On the other hand, the countryside has fewer job opportunities and fewer modern facilities such as hospitals or universities. Therefore, I think the best solution is to improve the countryside, for example by building better schools and roads, so that young people do not need to leave. All in all, the countryside is a great place to live if it is developed well.\n\nFollow-up: Would you like to live in the countryside in the future?\nProbably yes, but not now. I would like to study in the city first to have better education, and later I would come back to live near my family, where the air is fresh and life is peaceful."}]}
+};
+const SP_ORDER=[['ielts1','IELTS Part 1'],['ielts2','IELTS Part 2'],['ielts3','IELTS Part 3'],['v1','VSTEP Part 1'],['v2','VSTEP Part 2'],['v3','VSTEP Part 3']];
+
+/* ===== Speaking: giọng mẫu, thu âm, chấm điểm, sửa lỗi, nói lại ===== */
+const SP_LEN={ielts1:[20,55],ielts2:[130,210],ielts3:[40,90],v1:[25,70],v2:[110,200],v3:[150,260]};
+const SPI={},SPH={};
+let SPV=null,SPR=0.9,SPQ=0,SPREC=null;
+const SPSR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function spPickVoice(){
+  if(!window.speechSynthesis)return null;
+  const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]US$/i.test(v.lang));
+  const pref=[/Google US English/i,/Microsoft (Aria|Jenny|Guy|Ana|Davis)/i,/Samantha|Allison|Ava|Nicky|Alex/i,/Zira|David|Mark/i];
+  for(const p of pref){const v=vs.find(x=>p.test(x.name));if(v)return v}
+  return vs[0]||null;
+}
+function spVoiceInfo(){
+  const el=$('#spVoice');if(!el)return;
+  if(!window.speechSynthesis){el.innerHTML='<span class="bad-t">Trình duyệt này không hỗ trợ đọc mẫu. Hãy dùng Chrome hoặc Edge.</span>';return}
+  SPV=spPickVoice();
+  el.innerHTML=SPV?'Giọng đang dùng: <b>'+esc(SPV.name)+'</b> ('+esc(SPV.lang)+', Anh Mỹ)':'<span class="bad-t">Máy chưa có giọng Anh Mỹ (en-US). Chrome hoặc Edge trên máy tính thường có sẵn. Máy sẽ dùng giọng tiếng Anh mặc định.</span>';
+}
+if(window.speechSynthesis)speechSynthesis.onvoiceschanged=spVoiceInfo;
+function spStop(){SPQ++;if(window.speechSynthesis)speechSynthesis.cancel();$$('.sp-s.on').forEach(x=>x.classList.remove('on'))}
+function spSpeak(sents,els){
+  if(!window.speechSynthesis)return;
+  spStop();const tok=SPQ;let i=0;
+  const next=()=>{
+    if(tok!==SPQ)return;
+    $$('.sp-s.on').forEach(x=>x.classList.remove('on'));
+    if(i>=sents.length)return;
+    const u=new SpeechSynthesisUtterance(sents[i]);u.lang='en-US';if(SPV)u.voice=SPV;u.rate=SPR;
+    const el=els&&els[i];if(el)el.classList.add('on');
+    u.onend=()=>{i++;next()};u.onerror=()=>{i++;next()};
+    speechSynthesis.speak(u);
+  };
+  setTimeout(next,60);
+}
+function spModelHTML(id,text){
+  return text.split(/\n\n/).map(par=>{
+    const label=/^Follow-up:/.test(par);
+    return '<p class="para sp-par">'+sentsOf(par).map(s=>'<span class="sp-s" data-sp="sent" data-id="'+id+'" tabindex="0">'+esc(s)+'</span>').join(' ')+'</p>';
+  }).join('');
+}
+function spPlayAll(id){
+  const box=document.getElementById('spm-'+id);if(!box)return;
+  const els=$$('.sp-s',box);spSpeak(els.map(x=>x.textContent),els);
+}
+
+/* ----- chấm điểm bài nói ----- */
+const SP_Q_STOP=['describe','should','explain','which','there','situation','option','options','ideas','what','when','where','your','have','about','their','these','topic','usually','often','would','think','good','best'];
+function spSuggest(chunks,model){
+  const fixes=[],rep=[],weak=[];
+  chunks.forEach((c,i)=>{const r=fixSent(c,true);if(r.notes.length)fixes.push({no:i+1,orig:c,fixed:r.fixed,notes:r.notes});WEAK.forEach(w=>{if(w[0].test(c))weak.push(w[1])})});
+  const text=chunks.join(' ').toLowerCase(),words=text.match(/[a-z']+/g)||[],freq={};
+  words.forEach(w=>{if(w.length>3&&!LG_STOP.has(w))freq[w]=(freq[w]||0)+1});
+  Object.keys(freq).filter(w=>freq[w]>=3).sort((a,b)=>freq[b]-freq[a]).slice(0,5).forEach(w=>rep.push({w:w,c:freq[w],syn:SYN[w]||SYN[w.replace(/s$/,'')]||[]}));
+  const have=new Set(words),miss={};
+  (model.toLowerCase().match(/[a-z']{6,}/g)||[]).forEach(w=>{if(!have.has(w)&&!LG_STOP.has(w))miss[w]=1});
+  return{fixes:fixes,rep:rep,weak:[...new Set(weak)].slice(0,6),missing:Object.keys(miss).slice(0,10)};
+}
+function spGrade(id,chunks,conf,secs){
+  const m=SPI[id],L=SP_LEN[m.part],text=chunks.join(' '),n=wc(text),low=text.toLowerCase();
+  const words=low.match(/[a-z']+/g)||[];
+  const key=(m.q.toLowerCase().match(/[a-z]{4,}/g)||[]).filter(w=>!LG_STOP.has(w)&&SP_Q_STOP.indexOf(w)<0);
+  const relevant=!key.length||key.some(k=>low.includes(k.slice(0,Math.max(4,k.length-2))));
+  const conn=[...new Set(LG_CONN.filter(c=>new RegExp('(^|[^a-z])'+c+'([^a-z]|$)').test(low)))];
+  const reason=/because|for example|for instance|so that|since|such as/.test(low);
+  const sug=spSuggest(chunks,m.a);
+  const e=sug.fixes.reduce((a,x)=>a+x.notes.length,0);
+  const complex=chunks.filter(s=>/\b(because|when|if|although|while|which|who|whenever|where|so that)\b/i.test(s)).length;
+  const adv=[...new Set(words.filter(w=>LG_ADV.includes(w)))];
+  const wpm=(secs&&secs>=8)?Math.round(n/(secs/60)):null;
+  const cs=conf&&conf.length?conf.reduce((a,b)=>a+b,0)/conf.length:null;
+  let c=0;const cc=[];
+  c+=n>=L[0]?1.5:n>=L[0]*0.6?1:0.5;cc.push(n+' từ (mục tiêu '+L[0]+'–'+L[1]+')');
+  c+=reason?0.75:0;c+=conn.length>=2?0.75:conn.length?0.25:0;
+  cc.push(reason?'Có lý do hoặc ví dụ':'Chưa có lý do / ví dụ');cc.push(conn.length?'Từ nối: '+conn.join(', '):'Chưa dùng từ nối');
+  if(!relevant){c-=0.5;cc.push('Chưa thấy từ khóa của câu hỏi, hãy nhắc lại ý câu hỏi ở câu đầu')}
+  if(wpm!==null){cc.push('Tốc độ khoảng '+wpm+' từ/phút (chuẩn 100–150)');if(wpm<70)c-=0.5}
+  c=Math.max(0,Math.min(3,Math.round(c*2)/2));
+  const reps=sug.rep.filter(r=>r.c>=4).length;
+  let v=(adv.length>=3&&reps===0)?2:(adv.length>=1||reps===0)?1.5:1;
+  if(n<L[0]*0.5)v=Math.min(v,1);
+  const vc='Từ vựng nổi bật: '+(adv.length?adv.join(', '):'chưa có')+(sug.rep.length?'. Từ lặp: '+sug.rep.map(r=>r.w+' ('+r.c+'x)').join(', '):'');
+  let g=e===0?(complex>=1?3:2.5):e<=2?2:e<=4?1.5:1;
+  if(n<L[0]*0.5)g=Math.min(g,2);
+  const gc=e+' lỗi phát hiện được, '+complex+' câu phức. Máy chỉ bắt được lỗi quen thuộc.';
+  let p=null,pc='Không đo được vì em gõ bài (không thu âm).';
+  if(cs!==null){p=cs>=0.9?2:cs>=0.8?1.5:cs>=0.7?1:0.5;pc='Máy nghe hiểu '+Math.round(cs*100)+'% (càng cao càng rõ). Đây là ước lượng phát âm, không phải điểm giám khảo.'}
+  const base=c+v+g+(p===null?0:p);
+  const tot=Math.round((p===null?base*10/8:base)*10)/10;
+  const lows=[];if(conf)chunks.forEach((s,i)=>{if(conf[i]!==undefined&&conf[i]<0.8)lows.push(s)});
+  const tips=[];
+  if(n<L[0])tips.push('Bài còn ngắn ('+n+' từ). Thêm một lý do bằng because và một ví dụ bằng For example.');
+  if(n>L[1])tips.push('Bài hơi dài ('+n+' từ). Giữ ý chính, bỏ chi tiết phụ.');
+  if(!reason)tips.push('Thêm ví dụ cụ thể: For example, last weekend I…');
+  if(conn.length<2)tips.push('Dùng ít nhất hai từ nối: First of all, Besides, However, As a result.');
+  if(e)tips.push('Sửa các lỗi ngữ pháp ở phần bên dưới rồi nói lại cả bài.');
+  if(sug.rep.length)tips.push('Thay từ lặp bằng từ đồng nghĩa hoặc đại từ (xem bảng gợi ý).');
+  if(lows.length)tips.push('Nghe mẫu rồi đọc theo các đoạn máy nghe chưa rõ: nhấn trọng âm, phát âm rõ âm cuối (s, t, d).');
+  if(wpm!==null&&wpm<70)tips.push('Nói còn ngắt quãng. Hãy học thuộc khung ý rồi nói liền mạch, dùng Well… để câu giờ.');
+  if(wpm!==null&&wpm>170)tips.push('Em nói hơi nhanh. Chậm lại để rõ từng từ.');
+  return{id:id,n:n,tot:tot,c:c,v:v,g:g,p:p,cc:cc.join('. '),vc:vc,gc:gc,pc:pc,sug:sug,lows:lows,tips:tips,fixedText:chunks.map(s=>fixSent(s,true).fixed).join(' ')};
+}
+function spRender(r){
+  const f=x=>String(x).replace('.',','),H=SPH[r.id]=(SPH[r.id]||[]).concat([r.tot]);
+  const row=(a,b,mx,c)=>'<tr><td>'+a+'</td><td>'+(b===null?'–':f(b)+' / '+mx)+'</td><td>'+esc(c)+'</td></tr>';
+  let h='<div class="card" style="margin-top:12px"><div class="stat">Điểm dự kiến lần '+H.length+' (tham khảo)</div><div class="big">'+f(r.tot)+' / 10</div>';
+  if(H.length>1)h+='<p class="stat">Các lần trước: '+H.map(x=>f(x)).join(' → ')+(H[H.length-1]>H[H.length-2]?'. Tiến bộ rồi!':'')+'</p>';
+  h+='<div class="tbl"><table><tr><th>Tiêu chí</th><th>Điểm</th><th>Căn cứ</th></tr>'+row('Nội dung và mạch lạc',r.c,3,r.cc)+row('Từ vựng',r.v,2,r.vc)+row('Ngữ pháp',r.g,3,r.gc)+row('Phát âm (ước lượng)',r.p,2,r.pc)+'</table></div><p class="stat">Máy chấm bằng từ khóa và quy tắc nên chỉ là ước lượng, có thể lệch 1–2 điểm. Điểm chính thức do giám khảo hoặc giáo viên chấm.</p></div>';
+  h+='<div class="card" style="margin-top:12px"><b>Bài em vừa nói (máy nghe được)</b><p class="para">'+esc(SPH['t'+r.id]||'')+'</p></div>';
+  if(r.sug.fixes.length)h+='<div class="card" style="margin-top:12px"><b>Sửa lỗi: câu nên nói lại</b>'+r.sug.fixes.map(x=>'<div style="margin:10px 0;padding-top:8px;border-top:1px solid var(--line)"><div class="stat">Đoạn '+x.no+'</div><div class="bad-t">'+esc(x.orig)+'</div><div class="ok-t"><b>'+esc(x.fixed)+'</b></div><ul>'+x.notes.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div>').join('')+'<div class="row"><button class="btn" data-sp="fixplay" data-id="'+r.id+'">Nghe bản đã sửa</button></div></div>';
+  else h+='<div class="card" style="margin-top:12px"><p class="ok-t">Máy không phát hiện lỗi ngữ pháp quen thuộc nào.</p></div>';
+  if(r.lows.length)h+='<div class="card" style="margin-top:12px"><b>Đoạn máy nghe chưa rõ (nên luyện phát âm)</b><ul>'+r.lows.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><p class="stat">Cách luyện: nghe bài mẫu từng câu (bấm vào câu), đọc theo thật chậm, rồi tăng tốc. Chú ý âm cuối và trọng âm.</p></div>';
+  if(r.sug.rep.length)h+='<div class="card" style="margin-top:12px"><b>Gợi ý tránh lặp từ</b><div class="tbl"><table><tr><th>Từ lặp</th><th>Số lần</th><th>Thay bằng</th></tr>'+r.sug.rep.map(x=>'<tr><td><b>'+esc(x.w)+'</b></td><td>'+x.c+'</td><td>'+(x.syn.length?esc(x.syn.join(' / ')):'dùng đại từ hoặc nói lại cách khác')+'</td></tr>').join('')+'</table></div></div>';
+  if(r.sug.weak.length||r.sug.missing.length)h+='<div class="card" style="margin-top:12px"><b>Nâng cấp bài nói</b><ul>'+r.sug.weak.map(x=>'<li>'+esc(x)+'</li>').join('')+(r.sug.missing.length?'<li>Từ hay trong bài mẫu em có thể dùng: '+esc(r.sug.missing.join(', '))+'</li>':'')+'</ul></div>';
+  h+='<div class="card hl" style="margin-top:12px"><b>Hướng dẫn nói lại</b>'+(r.tips.length?'<ol>'+r.tips.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>':'<p>Bài nói khá tốt. Hãy thử nói lại thật trôi chảy, không nhìn bài mẫu.</p>')+'<div class="row"><button class="btn pri" data-sp="again" data-id="'+r.id+'">Nói lại</button></div></div>';
+  return h;
+}
+function spShow(id,chunks,conf,secs){
+  const text=chunks.join(' ').trim(),out=document.getElementById('res-'+id);if(!out)return;
+  if(wc(text)<3){out.innerHTML='<p class="bad-t">Máy chưa nghe được gì. Hãy kiểm tra micro, nói to và rõ hơn, rồi thử lại, hoặc gõ bài nói vào ô bên dưới.</p>';return}
+  SPH['t'+id]=text;SPH['f'+id]=null;
+  const r=spGrade(id,chunks,conf,secs);SPH['f'+id]=r.fixedText;
+  out.innerHTML=spRender(r);
+  try{out.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}
+}
+function spRecStart(id){
+  const live=document.getElementById('live-'+id);
+  if(!SPSR){live.innerHTML='<span class="bad-t">Trình duyệt này chưa hỗ trợ thu âm nhận dạng. Hãy dùng Chrome hoặc Edge, hoặc gõ bài nói vào ô bên dưới.</span>';return}
+  if(SPREC)spRecAbort();
+  spStop();
+  const rec=new SPSR();rec.lang='en-US';rec.continuous=true;rec.interimResults=true;rec.maxAlternatives=1;
+  const S={id:id,rec:rec,chunks:[],conf:[],interim:'',t0:Date.now(),stopping:false,err:null};SPREC=S;
+  rec.onresult=e=>{
+    let it='';
+    for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];if(r.isFinal){const t=r[0].transcript.trim();if(t){S.chunks.push(t);S.conf.push(r[0].confidence||0)}}else it+=r[0].transcript}
+    S.interim=it;live.innerHTML='<b>Đang nghe…</b> '+esc(S.chunks.join(' ')+' '+it);
+  };
+  rec.onerror=e=>{S.err=e.error;if(e.error==='not-allowed'||e.error==='service-not-allowed')live.innerHTML='<span class="bad-t">Trình duyệt chưa được phép dùng micro. Bấm biểu tượng ổ khóa cạnh địa chỉ trang và cho phép micro.</span>'};
+  rec.onend=()=>{
+    if(!S.stopping&&!S.err){try{rec.start();return}catch(e){}}
+    if(SPREC===S)SPREC=null;
+    $('[data-sp=rec][data-id="'+id+'"]').disabled=false;const sb=$('[data-sp=recstop][data-id="'+id+'"]');if(sb)sb.disabled=true;
+    if(S.stopping){if(S.interim){S.chunks.push(S.interim.trim());S.conf.push(0.8)}live.textContent='';spShow(id,S.chunks,S.conf,(Date.now()-S.t0)/1000)}
+  };
+  $('[data-sp=rec][data-id="'+id+'"]').disabled=true;$('[data-sp=recstop][data-id="'+id+'"]').disabled=false;
+  $('#res-'+id).innerHTML='';live.innerHTML='<b>Đang nghe…</b> hãy nói, rồi bấm Dừng và chấm điểm.';
+  try{rec.start()}catch(e){live.innerHTML='<span class="bad-t">Chưa bật được micro. Hãy thử lại.</span>';$('[data-sp=rec][data-id="'+id+'"]').disabled=false}
+}
+function spRecAbort(){if(SPREC){SPREC.stopping=false;SPREC.err='abort';try{SPREC.rec.abort()}catch(e){}SPREC=null}}
+function spRecStop(id){if(SPREC&&SPREC.id===id){SPREC.stopping=true;try{SPREC.rec.stop()}catch(e){}}}
+
+/* ----- bộ đếm giờ ----- */
+let SPT=null;
+function spBeep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.frequency.value=880;o.connect(a.destination);o.start();setTimeout(()=>{o.stop();a.close()},350)}catch(e){}}
+function spTimer(sec,label){
+  clearInterval(SPT);const el=$('#spTimer');if(!el)return;let t=sec;
+  const draw=()=>{el.innerHTML='<b>'+label+'</b>: '+Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};draw();
+  SPT=setInterval(()=>{t--;if(t<=0){clearInterval(SPT);el.innerHTML='<b>'+label+': hết giờ</b>';spBeep();return}draw()},1000);
+}
+
+/* ----- giao diện ----- */
+function spNavHTML(cur){
+  return '<div class="row" style="margin:12px 0">'+[['','Tổng quan']].concat(SP_ORDER).map(x=>'<a class="chip" href="#sp'+(x[0]?'-'+x[0]:'')+'" '+(x[0]===cur?'aria-pressed="true"':'aria-pressed="false"')+'>'+x[1]+'</a>').join('')+'</div>';
+}
+function spCtl(){
+  return '<div class="card hl"><b>Giọng đọc mẫu</b><p class="stat" id="spVoice"></p><div class="row" id="spRates"><span class="stat">Tốc độ:</span>'+[[0.7,'Chậm'],[0.9,'Vừa'],[1.05,'Nhanh']].map(r=>'<button class="chip" data-sp="rate" data-r="'+r[0]+'" aria-pressed="'+(SPR===r[0])+'">'+r[1]+'</button>').join('')+'<button class="btn" data-sp="stop">Dừng</button></div></div>';
+}
+function viewSP(sub){
+  if(!SPK[sub])return viewSPHome();
+  const P=SPK[sub],groups=[];let ci=-1;
+  let h='<div class="sec"><div><h1>'+esc(P.title)+'</h1><p class="sub lead">'+esc(P.time)+'</p></div>'+spNavHTML(sub)+spCtl();
+  h+='<details class="th" open><summary>Cách làm, từng bước</summary><div class="body"><ol>'+P.steps.map(x=>'<li>'+x+'</li>').join('')+'</ol></div></details>';
+  h+='<details class="th"><summary>Lỗi hay gặp</summary><div class="body"><ul>'+P.mistakes.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></details>';
+  if(P.timer)h+='<div class="card"><b>Bộ đếm giờ</b><div class="row" style="margin:8px 0"><button class="btn" data-sp="timer" data-s="60" data-l="Chuẩn bị">Chuẩn bị 1 phút</button><button class="btn" data-sp="timer" data-s="120" data-l="Nói">Nói 2 phút</button></div><p id="spTimer" class="stat" aria-live="polite">Bấm để bắt đầu đếm. Kết thúc sẽ có tiếng bíp.</p></div>';
+  h+='<h2>Luyện theo từng câu hỏi</h2><p class="stat">Quy trình: nghe mẫu → tự nói → chấm điểm → sửa lỗi → nói lại. Mở bài mẫu sau khi đã tự thử một lần.</p>';
+  P.items.forEach((it,i)=>{
+    const id=sub+'-'+i;SPI[id]={part:sub,q:it.q,a:it.a};
+    h+='<div class="card spitem" id="spi-'+id+'" style="margin:12px 0"><div class="stat">'+esc(it.h)+'</div><p class="spq">'+esc(it.q)+'</p>'+(it.hint?'<p class="stat">'+esc(it.hint)+'</p>':'');
+    h+='<div class="row"><button class="btn pri" data-sp="rec" data-id="'+id+'">Bắt đầu nói</button><button class="btn" data-sp="recstop" data-id="'+id+'" disabled>Dừng và chấm điểm</button></div><p class="stat" id="live-'+id+'" aria-live="polite"></p>';
+    h+='<details><summary class="stat" style="cursor:pointer">Không có micro? Gõ lại bài nói của em</summary><textarea id="ta-'+id+'" rows="4" class="sp-ta" placeholder="Gõ lại những gì em đã nói…"></textarea><div class="row"><button class="btn" data-sp="typed" data-id="'+id+'">Chấm bài gõ</button></div></details>';
+    h+='<div id="res-'+id+'" aria-live="polite"></div>';
+    h+='<details class="th" style="margin-top:12px"><summary>Bài mẫu và giọng đọc chuẩn Mỹ</summary><div class="body" id="spm-'+id+'"><div class="row" style="margin:8px 0"><button class="btn pri" data-sp="play" data-id="'+id+'">Nghe cả bài</button><button class="btn" data-sp="stop">Dừng</button></div><p class="stat">Bấm vào từng câu để nghe lại câu đó, rồi đọc theo.</p>'+spModelHTML(id,it.a)+'</div></details></div>';
+  });
+  return h+'</div>';
+}
+function viewSPHome(){
+  let h='<div class="sec"><div><h1>Luyện nói</h1><p class="sub lead">Theo hai dạng bài: IELTS Speaking (3 phần) và VSTEP B2 Speaking (3 phần). Có giọng mẫu Anh Mỹ, thu âm, chấm điểm, sửa lỗi và nói lại.</p></div>'+spNavHTML('')+spCtl();
+  h+='<div class="card"><b>Cách luyện hiệu quả</b><ol><li>Chọn một phần, nghe bài mẫu từng câu.</li><li>Tự nói câu trả lời của em (bấm Bắt đầu nói), nói đủ ý rồi bấm Dừng.</li><li>Đọc điểm, xem lỗi và bản đã sửa, nghe lại bản sửa.</li><li>Bấm Nói lại và cố gắng đạt điểm cao hơn lần trước.</li></ol><p class="stat">Thu âm cần Chrome hoặc Edge và cho phép micro. Nếu không có, em gõ lại bài nói để chấm. Điểm do máy ước lượng, chỉ để tham khảo.</p></div>';
+  h+='<h2>So sánh hai dạng bài</h2><div class="tbl"><table><tr><th></th><th>IELTS Speaking</th><th>VSTEP B2 Speaking</th></tr><tr><td>Part 1</td><td>Hỏi đáp về bản thân (4–5 phút)</td><td>Social interaction: tương tác xã hội (khoảng 3 phút)</td></tr><tr><td>Part 2</td><td>Nói một mình theo thẻ gợi ý: 1 phút chuẩn bị, nói 1–2 phút</td><td>Solution discussion: chọn giải pháp trong 3 phương án (khoảng 4 phút)</td></tr><tr><td>Part 3</td><td>Thảo luận sâu, câu hỏi trừu tượng (4–5 phút)</td><td>Topic development: phát triển chủ đề và trả lời câu hỏi thêm (khoảng 5 phút)</td></tr></table></div><p class="stat">Thời lượng có thể thay đổi theo từng kỳ thi. Em nên kiểm tra lại thông báo của trường hoặc đề mẫu chính thức.</p>';
+  h+='<h2>Mẫu câu dùng được mọi phần</h2><div class="tbl"><table><tr><th>Câu tiếng Anh</th><th>Nghĩa, dùng khi</th></tr>'+SP_PHRASES.map(p=>'<tr><td><span class="sp-s" data-sp="phrase" data-t="'+esc(p[0].replace(/ \/ .*$/,'').replace(/…/g,''))+'" tabindex="0">'+esc(p[0])+'</span></td><td>'+esc(p[1])+'</td></tr>').join('')+'</table></div><p class="stat">Bấm vào câu để nghe.</p>';
+  h+='<h2>Mẹo phát âm kiểu Mỹ</h2><div class="card"><ul><li><b>Âm r</b> được cuộn lưỡi ở cuối từ: car, teacher, water.</li><li><b>Âm t giữa hai nguyên âm</b> nghe như d nhẹ: water, better, city.</li><li><b>Nối âm</b>: một phụ âm cuối nối với nguyên âm đầu từ sau: pick it up, an apple, spend a lot.</li><li><b>Âm cuối</b> phải rõ: friends, helps, stressed. Đây là chỗ học sinh Việt Nam hay nuốt.</li><li><b>Trọng âm</b> quyết định nghe có tự nhiên không: im-POR-tant, com-mu-ni-CA-tion, en-ter-TAIN-ment.</li><li><b>Ngữ điệu</b>: xuống giọng ở cuối câu khẳng định, lên giọng ở cuối câu hỏi Yes / No.</li></ul></div>';
+  return h+'</div>';
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-sp]');if(!b)return;
+  const a=b.dataset.sp,id=b.dataset.id;
+  if(a==='rate'){SPR=parseFloat(b.dataset.r);$$('#spRates .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));return}
+  if(a==='stop'){spStop();return}
+  if(a==='play'){spPlayAll(id);return}
+  if(a==='sent'||a==='phrase'){const t=a==='sent'?b.textContent:b.dataset.t;spSpeak([t],[b]);return}
+  if(a==='timer'){spTimer(parseInt(b.dataset.s,10),b.dataset.l);return}
+  if(a==='rec'||a==='again'){if(a==='again'){const r=document.getElementById('res-'+id);if(r)r.innerHTML='';const c=document.getElementById('spi-'+id);if(c)try{c.scrollIntoView({block:'start',behavior:'smooth'})}catch(x){}}spRecStart(id);return}
+  if(a==='recstop'){spRecStop(id);return}
+  if(a==='typed'){const t=document.getElementById('ta-'+id).value.trim();spShow(id,sentsOf(t),null,null);return}
+  if(a==='fixplay'){const t=SPH['f'+id];if(t)spSpeak(sentsOf(t),null);return}
+});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset&&(e.target.dataset.sp==='sent'||e.target.dataset.sp==='phrase')){e.preventDefault();e.target.click()}});
+
 /* ===================== Bộ khung ứng dụng ===================== */
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -1638,7 +1965,7 @@ function lgRun(topic){
 /* ----- Gợi ý sửa lỗi và tránh lặp từ ----- */
 const SYN={friends:['companions','classmates','peers','close ones','them (đại từ)'],friend:['companion','classmate','peer'],time:['moments','hours','period','free hours','it (đại từ)'],help:['support','assist','benefit','contribute to'],helps:['supports','assists','benefits'],good:['beneficial','positive','useful','excellent'],important:['essential','crucial','vital','significant'],like:['enjoy','be fond of','prefer','love'],people:['teenagers','students','individuals','young people'],activities:['hobbies','pastimes','pursuits'],activity:['hobby','pastime'],feel:['experience','sense','become'],make:['let','allow','enable','cause'],many:['numerous','plenty of','various','a variety of'],happy:['delighted','cheerful','content','joyful'],learn:['acquire','pick up','develop','gain'],get:['gain','receive','obtain','earn'],spend:['devote','dedicate','invest'],play:['take part in','join in','practise'],stress:['pressure','tension','worries'],study:['learn','revise','work on'],lesson:['class','subject'],lessons:['classes','subjects'],school:['class','campus'],family:['relatives','parents','loved ones'],life:['daily routine','everyday life','lifestyle'],skills:['abilities','competences','talents'],improve:['enhance','develop','boost','strengthen'],enjoy:['love','take pleasure in','be keen on'],use:['apply','employ','make use of'],'things':['activities','habits','aspects'],thing:['aspect','point','matter'],relax:['unwind','refresh themselves','recharge'],healthy:['good for health','beneficial','nutritious (đồ ăn)'],together:['with one another','side by side','as a group'],country:['rural area','village','countryside'],countryside:['rural area','village','the country']};
 const WEAK=[[/\ba lot of\b/i,'a lot of → numerous / plenty of / a great deal of'],[/\blots of\b/i,'lots of → numerous / plenty of'],[/\bvery good\b/i,'very good → excellent / beneficial / outstanding'],[/\bvery important\b/i,'very important → essential / crucial'],[/\bvery happy\b/i,'very happy → delighted / thrilled'],[/\bvery big\b/i,'very big → huge / enormous'],[/\bvery tired\b/i,'very tired → exhausted'],[/\bnice\b/i,'nice → pleasant / friendly / enjoyable'],[/\bthings?\b/i,'thing(s) → nói cụ thể: activities, habits, hobbies…'],[/\bgood\b/i,'good → beneficial / positive / useful'],[/\bbad\b/i,'bad → harmful / negative / unhealthy'],[/\bget\b/i,'get → gain / receive / obtain / become'],[/\bbig\b/i,'big → large / significant / major'],[/\bI think\b/i,'I think → In my opinion / From my point of view']];
-function fixSent(s){
+function fixSent(s,sp){
   let f=s;const notes=[];
   const R=(re,fn,why)=>{f=f.replace(re,(...a)=>{const r=typeof fn==='string'?fn:fn(...a);if(r!==a[0])notes.push(why+': «'+a[0].trim()+'» → «'+r.trim()+'»');return r})};
   const sv=w=>/(s|x|z|ch|sh)$/.test(w)?w+'es':/[^aeiou]y$/.test(w)?w.slice(0,-1)+'ies':w==='have'?'has':w==='do'?'does':w==='go'?'goes':w+'s';
@@ -1658,8 +1985,8 @@ function fixSent(s){
   R(/\ban\s+([^aeiou\s]\w*)/ig,(m,w)=>/^(hour|honest|heir|honou?r|mp3)/i.test(w)?m:'a '+w,'an → a trước phụ âm');
   R(/\b(people|teenagers|students|children|friends|parents)\s+(is|was)\b/ig,(m,a,b)=>a+(b==='is'?' are':' were'),'Chủ ngữ số nhiều');
   R(/\b(\w+)\s+\1\b/ig,(m,w)=>/^(very|that|had)$/i.test(w)?m:w,'Bỏ từ lặp liền nhau');
-  if(/^[a-z]/.test(f)){f=f[0].toUpperCase()+f.slice(1);notes.push('Viết hoa chữ cái đầu câu')}
-  if(!/[.!?]$/.test(f)){f+='.';notes.push('Thêm dấu chấm cuối câu')}
+  if(!sp){if(/^[a-z]/.test(f)){f=f[0].toUpperCase()+f.slice(1);notes.push('Viết hoa chữ cái đầu câu')}
+  if(!/[.!?]$/.test(f)){f+='.';notes.push('Thêm dấu chấm cuối câu')}}
   return{fixed:f,notes};
 }
 function lgSuggest(text){
@@ -1770,13 +2097,15 @@ function viewWrong(){
 }
 
 /* ===================== Bộ định tuyến ===================== */
-const TABS=[['home','Trang chủ'],['pa','Phát âm'],['wf','Hình thức từ'],['gr','Ngữ pháp'],['wr','Viết đoạn'],['test','Đề thi thử'],['wrong','Sổ lỗi sai']];
+const TABS=[['home','Trang chủ'],['pa','Phát âm'],['wf','Hình thức từ'],['gr','Ngữ pháp'],['wr','Viết đoạn'],['sp','Luyện nói'],['test','Đề thi thử'],['wrong','Sổ lỗi sai']];
 function route(){
   const hash=(location.hash||'#home').slice(1);
   const parts=hash.split('-'),tab=TABS.some(t=>t[0]===parts[0])?parts[0]:'home',sub=parts.slice(1).join('-');
   $('#tabs').innerHTML=TABS.map(t=>'<a class="tab" href="#'+(t[0]==='gr'?'gr-'+(CDNAME[sub]&&tab==='gr'?sub:'cd1'):t[0])+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+t[1]+(t[0]==='wrong'?'<span class="n" id="wrongN"></span>':'')+'</a>').join('');
-  const V={home:viewHome,pa:viewPA,wf:viewWF,gr:()=>viewGR(sub),wr:viewWR,test:viewTest,wrong:viewWrong};
+  const V={home:viewHome,pa:viewPA,wf:viewWF,gr:()=>viewGR(sub),wr:viewWR,sp:()=>viewSP(sub),test:viewTest,wrong:viewWrong};
+  if(window.speechSynthesis)speechSynthesis.cancel();if(typeof SPREC!=='undefined'&&SPREC)spRecAbort();clearInterval(SPT);
   $('#app').innerHTML=V[tab]();
+  if(tab==='sp')spVoiceInfo();
   if(tab==='wr')initWR();
   if(tab==='test'&&EX&&!EX.done)examCount();
   updateBadge();
